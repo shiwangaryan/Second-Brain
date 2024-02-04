@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:solution_challenge_app/features/authentication/screens/on_boarding.dart";
 
+
 class App extends StatelessWidget {
   const App({super.key});
 

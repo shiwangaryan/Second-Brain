@@ -7,7 +7,7 @@ class OnBoardingText {
   static const onBoardingTitle5 = "AI Chatbot- Serenity";
 
   static const onBoardingSubTitle1 =
-      "Revisit cherished moments with a feature that lets you view photos and read through personal journals.";
+      "Revisit cherished moments with photos and read through your personal journals.";
   static const onBoardingSubTitle2 =
       "Stay organized with ease. Track daily routines, appointments, and to-do tasks effortlessly, bringing a sense of structure and calmness to your day.";
   static const onBoardingSubTitle3 =

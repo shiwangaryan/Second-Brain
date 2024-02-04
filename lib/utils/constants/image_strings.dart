@@ -4,17 +4,17 @@ class Images {
   // -- on boarding logos
 
   static const String onBoardingJournal =
-      "assets\images\on_boarding_images\journal.gif";
+      "assets/images/on_boarding_images/journal.svg";
   static const String onBoardingRoutine =
-      "assets\images\on_boarding_images\daily_routine.gif";
+      "assets/images/on_boarding_images/daily_routine.gif";
 
   static const String onBoardingMedication =
-      "assets\images\on_boarding_images\medication.gif";
+      "assets/images/on_boarding_images/medication.gif";
 
   static const String onBoardingMusic =
-      "assets\images\on_boarding_images\music_therapy.gif";
+      "assets/images/on_boarding_images/music_therapy.gif";
   static const String onBoardingChatbot =
-      "assets\images\on_boarding_images\chatbot.gif";
+      "assets/images/on_boarding_images/chatbot.gif";
 }
 //app logo
 

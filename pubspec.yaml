@@ -24,6 +24,8 @@ dependencies:
   # Icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
+  # SVG images
+  flutter_svg: ^2.0.9
 
   # State Management
   get: ^4.6.6
