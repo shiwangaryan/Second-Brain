@@ -6,15 +6,15 @@ class Images {
   static const String onBoardingJournal =
       "assets/images/on_boarding_images/journal.svg";
   static const String onBoardingRoutine =
-      "assets/images/on_boarding_images/daily_routine.gif";
+      "assets/images/on_boarding_images/daily_routine.svg";
 
   static const String onBoardingMedication =
-      "assets/images/on_boarding_images/medication.gif";
+      "assets/images/on_boarding_images/medication.svg";
 
   static const String onBoardingMusic =
-      "assets/images/on_boarding_images/music_therapy.gif";
+      "assets/images/on_boarding_images/music_therapy.svg";
   static const String onBoardingChatbot =
-      "assets/images/on_boarding_images/chatbot.gif";
+      "assets/images/on_boarding_images/chatbot.svg";
 }
 //app logo
 
