@@ -18,7 +18,6 @@ class OnBoardingController extends GetxController {
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);
-      // currentPageIndex.value += 1;
     }
   }
 
