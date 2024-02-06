@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:solution_challenge_app/features/authentication/screens/login/login_page_container.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
@@ -38,5 +37,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-

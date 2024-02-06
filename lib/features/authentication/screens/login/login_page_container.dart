@@ -21,7 +21,7 @@ class LoginPageContainer extends StatelessWidget {
         color: isDarkTheme ? Color(0XFF1A1A1A) : Color(0XFFFFFFFF),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,14 +62,43 @@ class LoginPageContainer extends StatelessWidget {
               isDarkTheme: isDarkTheme,
               text: 'Continue with Phone',
               lightColor: Color(0XFF1A1A1A),
-              darkColor: Color(0XFFFFFFFF),
+              darkColor: Color.fromARGB(255, 239, 237, 237),
             ),
             TextButton(
               isDarkTheme: isDarkTheme,
               text: 'Continue with Email',
-              lightColor: Color(0XFFEDEDED),
-              darkColor: Color(0XFF1A1A1A),
+              lightColor: Color.fromARGB(255, 247, 245, 245),
+              darkColor: Color.fromARGB(255, 41, 41, 41),
             ),
+            Row(
+              children: [
+                //
+                // ------- Icon Button -------
+                Expanded(
+                  child: IconButton(
+                    isDarkTheme: isDarkTheme,
+                    logo: isDarkTheme
+                        ? 'assets/images/login_page/google_white.png'
+                        : 'assets/images/login_page/google_black.png',
+                    lightColor: Color.fromARGB(255, 247, 245, 245),
+                    darkColor: Color.fromARGB(255, 41, 41, 41),
+                  ),
+                ),
+                //
+                // ------- Gap inbetween -------
+                SizedBox(width: 6),
+                //
+                // ------- Sign Up Button -------
+                Expanded(
+                  child: TextButton(
+                    isDarkTheme: isDarkTheme,
+                    text: "Sign Up?",
+                    lightColor: Color.fromARGB(255, 247, 245, 245),
+                    darkColor: Color.fromARGB(255, 41, 41, 41),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -77,6 +106,53 @@ class LoginPageContainer extends StatelessWidget {
   }
 }
 
+// icon button
+class IconButton extends StatelessWidget {
+  const IconButton({
+    super.key,
+    required this.isDarkTheme,
+    required this.logo,
+    required this.lightColor,
+    required this.darkColor,
+  });
+
+  final bool isDarkTheme;
+  final String logo;
+  final Color lightColor;
+  final Color darkColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () => {},
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                backgroundColor: isDarkTheme ? darkColor : lightColor,
+                elevation: 0,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Image.asset(
+                  logo,
+                  height: 25,
+                  width: 25,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// text button
 class TextButton extends StatelessWidget {
   const TextButton({
     super.key,
@@ -104,6 +180,7 @@ class TextButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 backgroundColor: isDarkTheme ? darkColor : lightColor,
+                elevation: 0,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -136,7 +213,7 @@ class Star extends StatelessWidget {
         ? 'assets/images/login_page/star_white.png'
         : 'assets/images/login_page/star_black.png';
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 23),
       child: Container(
         width: 66,
         height: 66,
