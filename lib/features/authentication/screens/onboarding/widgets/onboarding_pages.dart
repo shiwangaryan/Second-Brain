@@ -19,7 +19,6 @@ class OnBoardingPageColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          // top: HelperFunctions.screenHeight() * 0.19,
           right: HelperFunctions.screenWidth() * 0.08,
           left: HelperFunctions.screenWidth() * 0.08),
       child: Column(
