@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:solution_challenge_app/features/authentication/screens/login/login_page_phone_email.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
-class LoginPageContainer extends StatelessWidget {
-  const LoginPageContainer({
+class LoginSignupPageContainer extends StatelessWidget {
+  const LoginSignupPageContainer({
     super.key,
   });
 
@@ -70,6 +72,8 @@ class LoginPageContainer extends StatelessWidget {
               lightColor: Color.fromARGB(255, 247, 245, 245),
               darkColor: Color.fromARGB(255, 41, 41, 41),
             ),
+            //
+            // ----- last row -------
             Row(
               children: [
                 //
@@ -106,6 +110,9 @@ class LoginPageContainer extends StatelessWidget {
   }
 }
 
+//
+// ----- all the widgets used below ------
+//
 // icon button
 class IconButton extends StatelessWidget {
   const IconButton({
@@ -175,7 +182,8 @@ class TextButton extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () =>
+                  {Get.to(() => LoginPageContainer(signMethod: 'Email'))},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -233,5 +241,3 @@ class Star extends StatelessWidget {
     );
   }
 }
-
-// Get Started Info
