@@ -1,50 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:solution_challenge_app/features/authentication/screens/login/login_signup_page_container.dart';
+import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-class SignupPage extends StatelessWidget {
-  SignupPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: HelperFunctions.screenHeight(),
-            width: HelperFunctions.screenWidth(),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/login_page/gradient.jpg'),
-                  fit: BoxFit.cover),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // LoginSignupPageContainer(),
-                // LoginPageContainer(signMethod: 'Email'),
-                SignupPageContainer(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class SignupPageContainer extends StatelessWidget {
-  const SignupPageContainer({
-    super.key,
-  });
+  const SignupPageContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +32,8 @@ class SignupPageContainer extends StatelessWidget {
               children: [
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginSignupPage()));
-                  },
+                  onPressed: () =>
+                      LoginSignupPageController.instance.backPageController(),
                   child: Text(
                     'Back',
                     style: TextStyle(

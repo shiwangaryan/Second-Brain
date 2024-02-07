@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solution_challenge_app/features/authentication/screens/login/login_signup_page_container.dart';
+import 'package:solution_challenge_app/login.dart';
 
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
@@ -15,7 +15,7 @@ class OnBoardingController extends GetxController {
   //update index & jump to next page
   void nextPage() {
     if (currentPageIndex.value == 4) {
-      Get.to(LoginSignupPage());
+      Get.to(const LoginPage());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);
