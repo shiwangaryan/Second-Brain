@@ -2,9 +2,7 @@
 
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import 'package:solution_challenge_app/login.dart';
 import "package:solution_challenge_app/features/authentication/screens/onboarding/on_boarding.dart";
-// import 'package:solution_challenge_app/features/authentication/screens/onboarding/on_boarding.dart';
 import "package:solution_challenge_app/utils/theme/theme.dart";
 
 class App extends StatelessWidget {

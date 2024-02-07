@@ -21,7 +21,7 @@ class SigninPageContainer extends StatelessWidget {
     final Color firstContainerColor = Color.fromARGB(255, 41, 41, 41);
 
     return Container(
-      height: HelperFunctions.screenHeight() * 0.53,
+      height: HelperFunctions.screenHeight() * 0.6,
       width: HelperFunctions.screenWidth() * 0.94,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
@@ -94,6 +94,7 @@ class SigninPageContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextFormField(
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(
@@ -167,6 +168,9 @@ class SigninPageContainer extends StatelessWidget {
                   child: LoginTextButton(
                     isDarkTheme: isDarkTheme,
                     text: 'Send OTP',
+                    bgColor: otpContainerColor,
+                    fontsize: 15,
+                    textColor: firstContainerColor,
                   ),
                 ),
                 //
@@ -178,8 +182,26 @@ class SigninPageContainer extends StatelessWidget {
                   child: LoginTextButton(
                     isDarkTheme: isDarkTheme,
                     text: "Sign Up?",
+                    bgColor: otpContainerColor,
+                    textColor: firstContainerColor,
+                    fontsize: 15,
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: 8),
+            //
+            // ------- Sign In button
+            Row(
+              children: [
+                Expanded(
+                    child: LoginTextButton(
+                  isDarkTheme: isDarkTheme,
+                  text: 'Sign In',
+                  bgColor: firstContainerColor,
+                  textColor: Colors.white,
+                  fontsize: 18,
+                ))
               ],
             )
           ],
@@ -224,14 +246,19 @@ class LoginTextButton extends StatelessWidget {
     super.key,
     required this.isDarkTheme,
     required this.text,
+    required this.bgColor,
+    required this.textColor,
+    required this.fontsize,
   });
 
   final bool isDarkTheme;
   final String text;
+  final Color bgColor;
+  final Color textColor;
+  final double fontsize;
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = Color.fromARGB(255, 247, 245, 245);
     return Padding(
       padding: const EdgeInsets.only(top: 6.0),
       child: Row(
@@ -251,9 +278,9 @@ class LoginTextButton extends StatelessWidget {
                   text,
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: 15,
+                    fontSize: fontsize,
                     fontWeight: FontWeight.w400,
-                    color: Color(0XFF1A1A1A),
+                    color: textColor,
                   ),
                 ),
               ),
