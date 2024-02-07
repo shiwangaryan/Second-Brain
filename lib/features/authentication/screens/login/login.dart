@@ -30,9 +30,9 @@ class LoginPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // LoginSignupPageContainer(),
+                LoginSignupPageContainer(),
                 // LoginPageContainer(signMethod: 'Email'),
-                SignupPage(),
+                // SignupPage(),
               ],
             ),
           ),

@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: LoginPage(),
+      home: OnBoardingScreen(),
     );
   }
 }

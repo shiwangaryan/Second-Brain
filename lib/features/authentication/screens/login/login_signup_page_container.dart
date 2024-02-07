@@ -2,8 +2,46 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solution_challenge_app/features/authentication/screens/login/login.dart';
 import 'package:solution_challenge_app/features/authentication/screens/login/login_page_phone_email.dart';
+import 'package:solution_challenge_app/features/authentication/screens/login/signup_page.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
+
+class LoginSignupPage extends StatelessWidget {
+  LoginSignupPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: HelperFunctions.screenHeight(),
+            width: HelperFunctions.screenWidth(),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/login_page/gradient.jpg'),
+                  fit: BoxFit.cover),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoginSignupPageContainer(),
+                // LoginPageContainer(signMethod: 'Email'),
+                // SignupPage(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class LoginSignupPageContainer extends StatelessWidget {
   const LoginSignupPageContainer({
@@ -60,17 +98,19 @@ class LoginSignupPageContainer extends StatelessWidget {
             ),
             //
             // ------- Continue Button -------
-            TextButton(
+            LoginSignupPageTextButton(
               isDarkTheme: isDarkTheme,
               text: 'Continue with Phone',
               lightColor: Color(0XFF1A1A1A),
               darkColor: Color.fromARGB(255, 239, 237, 237),
+              RedirectPage: SigninPage(method: 'Phone'),
             ),
-            TextButton(
+            LoginSignupPageTextButton(
               isDarkTheme: isDarkTheme,
               text: 'Continue with Email',
               lightColor: Color.fromARGB(255, 247, 245, 245),
               darkColor: Color.fromARGB(255, 41, 41, 41),
+              RedirectPage: SigninPage(method: 'Email'),
             ),
             //
             // ----- last row -------
@@ -94,11 +134,12 @@ class LoginSignupPageContainer extends StatelessWidget {
                 //
                 // ------- Sign Up Button -------
                 Expanded(
-                  child: TextButton(
+                  child: LoginSignupPageTextButton(
                     isDarkTheme: isDarkTheme,
                     text: "Sign Up?",
                     lightColor: Color.fromARGB(255, 247, 245, 245),
                     darkColor: Color.fromARGB(255, 41, 41, 41),
+                    RedirectPage: SignupPage(),
                   ),
                 ),
               ],
@@ -160,19 +201,21 @@ class IconButton extends StatelessWidget {
 }
 
 // text button
-class TextButton extends StatelessWidget {
-  const TextButton({
+class LoginSignupPageTextButton extends StatelessWidget {
+  const LoginSignupPageTextButton({
     super.key,
     required this.isDarkTheme,
     required this.text,
     required this.lightColor,
     required this.darkColor,
+    required this.RedirectPage,
   });
 
   final bool isDarkTheme;
   final String text;
   final Color lightColor;
   final Color darkColor;
+  final Widget RedirectPage;
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +225,10 @@ class TextButton extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () =>
-                  {Get.to(() => LoginPageContainer(signMethod: 'Email'))},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RedirectPage));
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),

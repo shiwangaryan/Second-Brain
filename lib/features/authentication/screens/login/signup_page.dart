@@ -1,13 +1,48 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solution_challenge_app/features/authentication/screens/login/login_signup_page_container.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({
+  SignupPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: HelperFunctions.screenHeight(),
+            width: HelperFunctions.screenWidth(),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/login_page/gradient.jpg'),
+                  fit: BoxFit.cover),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // LoginSignupPageContainer(),
+                // LoginPageContainer(signMethod: 'Email'),
+                SignupPageContainer(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SignupPageContainer extends StatelessWidget {
+  const SignupPageContainer({
     super.key,
   });
 
@@ -36,7 +71,12 @@ class SignupPage extends StatelessWidget {
               children: [
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
-                  onPressed: () => {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginSignupPage()));
+                  },
                   child: Text(
                     'Back',
                     style: TextStyle(
@@ -45,7 +85,7 @@ class SignupPage extends StatelessWidget {
                         fontSize: 14.0,
                         fontWeight: FontWeight.w300),
                   ),
-                )
+                ),
               ],
             ),
             //
