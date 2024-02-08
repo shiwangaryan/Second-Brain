@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
@@ -13,7 +11,6 @@ class OnBoardingPageColumn extends StatelessWidget {
   });
 
   final String image, title, subtitle;
-  // bool isDarkMode= (MediaQuery.of(context as BuildContext).platformBrightness)==Brightness.dark;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,7 @@ class OnBoardingPageColumn extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 30.0,
               fontWeight: FontWeight.w600,
@@ -47,7 +44,7 @@ class OnBoardingPageColumn extends StatelessWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 16.0,
               fontWeight: FontWeight.w300,

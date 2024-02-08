@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/screens/login/login_page_phone_email.dart';
@@ -7,7 +5,6 @@ import 'package:solution_challenge_app/features/authentication/screens/login/log
 import 'package:solution_challenge_app/features/authentication/screens/login/signup_page.dart';
 
 class LoginSignupPageController extends GetxController {
-  // static LoginSignupPageController get instance => Get.find();
 
   //variables
   final pageController = PageController();
@@ -25,9 +22,9 @@ class LoginSignupPageController extends GetxController {
 
   //all the widgets of authentication page
   final authenticationWidgets = [
-    LoginSignupPageContainer(),
-    SignupPageContainer(),
-    SigninPageContainer(signMethod: 'Phone'),
-    SigninPageContainer(signMethod: 'Email'),
+    const LoginSignupPageContainer(),
+    const SignupPageContainer(),
+    const SigninPageContainer(signMethod: 'Phone'),
+    const SigninPageContainer(signMethod: 'Email'),
   ];
 }

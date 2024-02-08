@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
@@ -17,7 +16,7 @@ class LoginPage extends StatelessWidget {
           Container(
             height: HelperFunctions.screenHeight(),
             width: HelperFunctions.screenWidth(),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/login_page/gradient.jpg'),
                   fit: BoxFit.cover),

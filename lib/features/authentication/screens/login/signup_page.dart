@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
+import 'package:solution_challenge_app/navigation_menu.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
 class SignupPageContainer extends StatelessWidget {
@@ -14,13 +14,12 @@ class SignupPageContainer extends StatelessWidget {
         (MediaQuery.of(context).platformBrightness) == Brightness.dark;
     final controller = Get.put(LoginSignupPageController());
 
-
     return Container(
       height: HelperFunctions.screenHeight() * 0.54,
       width: HelperFunctions.screenWidth() * 0.94,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
-        color: isDarkTheme ? Color(0XFF1A1A1A) : Color(0XFFFFFFFF),
+        color: isDarkTheme ? const Color(0XFF1A1A1A) : const Color(0XFFFFFFFF),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -35,8 +34,7 @@ class SignupPageContainer extends StatelessWidget {
               children: [
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
-                  onPressed: () =>
-                      controller.backPageController(),
+                  onPressed: () => controller.backPageController(),
                   child: Text(
                     'Back',
                     style: TextStyle(
@@ -58,13 +56,15 @@ class SignupPageContainer extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
-                  color: isDarkTheme ? Color(0XFFFFFFFF) : Color(0XFF1A1A1A),
+                  color: isDarkTheme
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFF1A1A1A),
                 ),
               ),
             ),
             //
             // -------- gap
-            SizedBox(height: 26),
+            const SizedBox(height: 26),
             //
             // ------- Form -------
             Form(
@@ -72,7 +72,7 @@ class SignupPageContainer extends StatelessWidget {
                 children: [
                   //
                   // ------- First & last Name -------
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                           child: InputFields(
@@ -87,10 +87,10 @@ class SignupPageContainer extends StatelessWidget {
                   ),
                   //
                   //-------- gap --------
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   //
                   //-------- phone number --------
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                           child: InputFields(
@@ -100,13 +100,13 @@ class SignupPageContainer extends StatelessWidget {
                   ),
                   //
                   //-------- gap --------
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   //
                   //-------- otp --------
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: InputFields(
                             prefixicon: Iconsax.password_check, text: 'OTP'),
                       ),
@@ -116,6 +116,7 @@ class SignupPageContainer extends StatelessWidget {
                           child: LoginTextButton(
                             isDarkTheme: isDarkTheme,
                             text: 'OTP',
+                            onpressfunction: 'otp',
                           ),
                         ),
                       ),
@@ -124,7 +125,7 @@ class SignupPageContainer extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             //
             // -----Create Account -------
             Row(
@@ -133,6 +134,7 @@ class SignupPageContainer extends StatelessWidget {
                   child: LoginTextButton(
                     isDarkTheme: isDarkTheme,
                     text: "Create Account",
+                    onpressfunction: 'home',
                   ),
                 ),
               ],
@@ -160,8 +162,8 @@ class InputFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color labelTextIconColor = Color.fromARGB(255, 133, 132, 132);
-    final Color otpContainerColor = Color.fromARGB(255, 241, 240, 240);
+    const Color labelTextIconColor = Color.fromARGB(255, 133, 132, 132);
+    const Color otpContainerColor = Color.fromARGB(255, 241, 240, 240);
     return Container(
       decoration: BoxDecoration(
         color: otpContainerColor,
@@ -175,7 +177,7 @@ class InputFields extends StatelessWidget {
             color: labelTextIconColor,
           ),
           labelText: text,
-          labelStyle: TextStyle(color: labelTextIconColor),
+          labelStyle: const TextStyle(color: labelTextIconColor),
         ),
       ),
     );
@@ -189,10 +191,12 @@ class LoginTextButton extends StatelessWidget {
     super.key,
     required this.isDarkTheme,
     required this.text,
+    required this.onpressfunction,
   });
 
   final bool isDarkTheme;
   final String text;
+  final String onpressfunction;
 
   @override
   Widget build(BuildContext context) {
@@ -200,18 +204,19 @@ class LoginTextButton extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () => {},
+            onPressed: () =>
+                onpressfunction == 'home' ? Get.to(const NavigationMenu()) : {},
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              backgroundColor: Color.fromARGB(255, 41, 41, 41),
+              backgroundColor: const Color.fromARGB(255, 41, 41, 41),
               elevation: 0,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 17.4),
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
@@ -244,8 +249,8 @@ class Star extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isDarkTheme
-              ? Color.fromARGB(255, 48, 48, 48)
-              : Color.fromARGB(255, 243, 242, 242),
+              ? const Color.fromARGB(255, 48, 48, 48)
+              : const Color.fromARGB(255, 243, 242, 242),
         ),
         child: Padding(
             padding: const EdgeInsets.all(12.0),

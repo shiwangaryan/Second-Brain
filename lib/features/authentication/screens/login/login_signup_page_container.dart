@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
@@ -20,7 +18,7 @@ class LoginSignupPageContainer extends StatelessWidget {
       width: HelperFunctions.screenWidth() * 0.94,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
-        color: isDarkTheme ? Color(0XFF1A1A1A) : Color(0XFFFFFFFF),
+        color: isDarkTheme ?const  Color(0XFF1A1A1A) : const Color(0XFFFFFFFF),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -40,7 +38,7 @@ class LoginSignupPageContainer extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: 28.0,
                   fontWeight: FontWeight.w600,
-                  color: isDarkTheme ? Color(0XFFFFFFFF) : Color(0XFF1A1A1A),
+                  color: isDarkTheme ? const Color(0XFFFFFFFF) : const Color(0XFF1A1A1A),
                 ),
               ),
             ),
@@ -53,8 +51,8 @@ class LoginSignupPageContainer extends StatelessWidget {
                   fontSize: 14.0,
                   fontWeight: FontWeight.w400,
                   color: isDarkTheme
-                      ? Color.fromARGB(255, 173, 173, 173)
-                      : Color(0XFF707070),
+                      ? const Color.fromARGB(255, 173, 173, 173)
+                      : const Color(0XFF707070),
                 ),
               ),
             ),
@@ -63,15 +61,15 @@ class LoginSignupPageContainer extends StatelessWidget {
             LoginSignupPageTextButton(
               isDarkTheme: isDarkTheme,
               text: 'Continue with Phone',
-              lightColor: Color(0XFF1A1A1A),
-              darkColor: Color.fromARGB(255, 239, 237, 237),
+              lightColor: const Color(0XFF1A1A1A),
+              darkColor: const Color.fromARGB(255, 239, 237, 237),
               index: 2,
             ),
             LoginSignupPageTextButton(
               isDarkTheme: isDarkTheme,
               text: 'Continue with Email',
-              lightColor: Color.fromARGB(255, 247, 245, 245),
-              darkColor: Color.fromARGB(255, 41, 41, 41),
+              lightColor: const Color.fromARGB(255, 247, 245, 245),
+              darkColor: const Color.fromARGB(255, 41, 41, 41),
               index: 3,
             ),
             //
@@ -86,8 +84,8 @@ class LoginSignupPageContainer extends StatelessWidget {
                     logo: isDarkTheme
                         ? 'assets/images/login_page/google_white.png'
                         : 'assets/images/login_page/google_black.png',
-                    lightColor: Color.fromARGB(255, 247, 245, 245),
-                    darkColor: Color.fromARGB(255, 41, 41, 41),
+                    lightColor: const Color.fromARGB(255, 247, 245, 245),
+                    darkColor: const Color.fromARGB(255, 41, 41, 41),
                   ),
                 ),
                 //
@@ -99,8 +97,8 @@ class LoginSignupPageContainer extends StatelessWidget {
                   child: LoginSignupPageTextButton(
                     isDarkTheme: isDarkTheme,
                     text: "Sign Up?",
-                    lightColor: Color.fromARGB(255, 247, 245, 245),
-                    darkColor: Color.fromARGB(255, 41, 41, 41),
+                    lightColor: const Color.fromARGB(255, 247, 245, 245),
+                    darkColor: const Color.fromARGB(255, 41, 41, 41),
                     index: 1,
                   ),
                 ),
@@ -235,8 +233,8 @@ class Star extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isDarkTheme
-              ? Color.fromARGB(255, 48, 48, 48)
-              : Color.fromARGB(255, 243, 242, 242),
+              ? const Color.fromARGB(255, 48, 48, 48)
+              : const Color.fromARGB(255, 243, 242, 242),
         ),
         child: Padding(
             padding: const EdgeInsets.all(12.0),

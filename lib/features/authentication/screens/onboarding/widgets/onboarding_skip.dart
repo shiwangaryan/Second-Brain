@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/on_boarding/on_boarding_controller.dart';
 
 class OnBoardingSkip extends StatelessWidget {
-  OnBoardingSkip({
+  const OnBoardingSkip({
     super.key,
   });
 

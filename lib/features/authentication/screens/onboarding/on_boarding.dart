@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/on_boarding/on_boarding_controller.dart';
@@ -24,7 +22,7 @@ class OnBoardingScreen extends StatelessWidget {
           PageView(
             controller: controller.pageController,
             onPageChanged: controller.updatePageIndicator,
-            children: [
+            children: const [
               OnBoardingPageColumn(
                 image: Images.onBoardingJournal,
                 title: OnBoardingText.onBoardingTitle1,
@@ -53,11 +51,11 @@ class OnBoardingScreen extends StatelessWidget {
             ],
           ),
           // skip button
-          OnBoardingSkip(),
+          const OnBoardingSkip(),
           // dot navigations
-          OnBoardingDotNavigation(),
+          const OnBoardingDotNavigation(),
           // circular next button
-          OnBoardingNextButton(),
+          const OnBoardingNextButton(),
         ],
       ),
     );

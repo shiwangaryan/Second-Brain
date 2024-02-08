@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
+import 'package:solution_challenge_app/navigation_menu.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
 class SigninPageContainer extends StatelessWidget {
@@ -17,18 +17,17 @@ class SigninPageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDarkTheme =
         (MediaQuery.of(context).platformBrightness) == Brightness.dark;
-    final Color labelTextIconColor = Color.fromARGB(255, 133, 132, 132);
-    final Color otpContainerColor = Color.fromARGB(255, 247, 245, 245);
-    final Color firstContainerColor = Color.fromARGB(255, 41, 41, 41);
+    const Color labelTextIconColor = Color.fromARGB(255, 133, 132, 132);
+    const Color otpContainerColor = Color.fromARGB(255, 247, 245, 245);
+    const Color firstContainerColor = Color.fromARGB(255, 41, 41, 41);
     final controller = Get.put(LoginSignupPageController());
-
 
     return Container(
       height: HelperFunctions.screenHeight() * 0.6,
       width: HelperFunctions.screenWidth() * 0.94,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
-        color: isDarkTheme ? Color(0XFF1A1A1A) : Color(0XFFFFFFFF),
+        color: isDarkTheme ? const Color(0XFF1A1A1A) : const Color(0XFFFFFFFF),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -43,8 +42,7 @@ class SigninPageContainer extends StatelessWidget {
               children: [
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
-                  onPressed: () =>
-                      controller.backPageController(),
+                  onPressed: () => controller.backPageController(),
                   child: Text(
                     'Back',
                     style: TextStyle(
@@ -66,7 +64,9 @@ class SigninPageContainer extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: 28.0,
                   fontWeight: FontWeight.w600,
-                  color: isDarkTheme ? Color(0XFFFFFFFF) : Color(0XFF1A1A1A),
+                  color: isDarkTheme
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFF1A1A1A),
                 ),
               ),
             ),
@@ -79,8 +79,8 @@ class SigninPageContainer extends StatelessWidget {
                   fontSize: 14.0,
                   fontWeight: FontWeight.w400,
                   color: isDarkTheme
-                      ? Color.fromARGB(255, 173, 173, 173)
-                      : Color(0XFF707070),
+                      ? const Color.fromARGB(255, 173, 173, 173)
+                      : const Color(0XFF707070),
                 ),
               ),
             ),
@@ -97,7 +97,7 @@ class SigninPageContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(
@@ -107,12 +107,13 @@ class SigninPageContainer extends StatelessWidget {
                             color: labelTextIconColor,
                           ),
                           labelText: signMethod,
-                          labelStyle: TextStyle(color: labelTextIconColor)),
+                          labelStyle:
+                              const TextStyle(color: labelTextIconColor)),
                     ),
                   ),
                   //
                   //-------- gap --------
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   //
                   //-------- otp --------
                   Container(
@@ -121,7 +122,7 @@ class SigninPageContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: Icon(
                           Iconsax.password_check,
@@ -149,7 +150,7 @@ class SigninPageContainer extends StatelessWidget {
                               activeColor: isDarkTheme
                                   ? otpContainerColor
                                   : firstContainerColor,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                             ),
                           ),
                         ),
@@ -174,11 +175,12 @@ class SigninPageContainer extends StatelessWidget {
                     bgColor: otpContainerColor,
                     fontsize: 15,
                     textColor: firstContainerColor,
+                    onpressfunction: 'otp',
                   ),
                 ),
                 //
                 // ------- Gap inbetween -------
-                SizedBox(width: 6),
+                const SizedBox(width: 6),
                 //
                 // ------- Sign Up Button -------
                 Expanded(
@@ -188,11 +190,12 @@ class SigninPageContainer extends StatelessWidget {
                     bgColor: otpContainerColor,
                     textColor: firstContainerColor,
                     fontsize: 15,
+                    onpressfunction: 'signup',
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             //
             // ------- Sign In button
             Row(
@@ -204,6 +207,7 @@ class SigninPageContainer extends StatelessWidget {
                   bgColor: firstContainerColor,
                   textColor: Colors.white,
                   fontsize: 18,
+                  onpressfunction: 'home',
                 ))
               ],
             )
@@ -245,30 +249,36 @@ class RemeberText extends StatelessWidget {
 //
 // text button
 class LoginTextButton extends StatelessWidget {
-  const LoginTextButton({
-    super.key,
-    required this.isDarkTheme,
-    required this.text,
-    required this.bgColor,
-    required this.textColor,
-    required this.fontsize,
-  });
+  const LoginTextButton(
+      {super.key,
+      required this.isDarkTheme,
+      required this.text,
+      required this.bgColor,
+      required this.textColor,
+      required this.fontsize,
+      required this.onpressfunction});
 
   final bool isDarkTheme;
   final String text;
   final Color bgColor;
   final Color textColor;
   final double fontsize;
+  final String onpressfunction;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginSignupPageController());
     return Padding(
       padding: const EdgeInsets.only(top: 6.0),
       child: Row(
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => onpressfunction == 'signup'
+                  ? controller.continueSignupController(1)
+                  : onpressfunction == 'home'
+                      ? Get.to(const NavigationMenu())
+                      : {},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -313,8 +323,8 @@ class Star extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isDarkTheme
-              ? Color.fromARGB(255, 48, 48, 48)
-              : Color.fromARGB(255, 243, 242, 242),
+              ? const Color.fromARGB(255, 48, 48, 48)
+              : const Color.fromARGB(255, 243, 242, 242),
         ),
         child: Padding(
             padding: const EdgeInsets.all(12.0),
