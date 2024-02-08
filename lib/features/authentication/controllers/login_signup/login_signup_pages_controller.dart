@@ -7,7 +7,7 @@ import 'package:solution_challenge_app/features/authentication/screens/login/log
 import 'package:solution_challenge_app/features/authentication/screens/login/signup_page.dart';
 
 class LoginSignupPageController extends GetxController {
-  static LoginSignupPageController get instance => Get.find();
+  // static LoginSignupPageController get instance => Get.find();
 
   //variables
   final pageController = PageController();

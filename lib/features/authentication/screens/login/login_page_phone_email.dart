@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
@@ -19,6 +20,8 @@ class SigninPageContainer extends StatelessWidget {
     final Color labelTextIconColor = Color.fromARGB(255, 133, 132, 132);
     final Color otpContainerColor = Color.fromARGB(255, 247, 245, 245);
     final Color firstContainerColor = Color.fromARGB(255, 41, 41, 41);
+    final controller = Get.put(LoginSignupPageController());
+
 
     return Container(
       height: HelperFunctions.screenHeight() * 0.6,
@@ -41,7 +44,7 @@ class SigninPageContainer extends StatelessWidget {
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
                   onPressed: () =>
-                      LoginSignupPageController.instance.backPageController(),
+                      controller.backPageController(),
                   child: Text(
                     'Back',
                     style: TextStyle(

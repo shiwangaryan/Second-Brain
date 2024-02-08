@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
@@ -181,14 +182,15 @@ class LoginSignupPageTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginSignupPageController());
+
     return Padding(
       padding: const EdgeInsets.only(top: 6.0),
       child: Row(
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => LoginSignupPageController.instance
-                  .continueSignupController(index),
+              onPressed: () => controller.continueSignupController(index),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),

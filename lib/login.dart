@@ -9,6 +9,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginSignupPageController());
+
     return Scaffold(
       body: Stack(
         children: [
@@ -28,9 +30,8 @@ class LoginPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Obx(() =>
-                  LoginSignupPageController.instance.authenticationWidgets[
-                      LoginSignupPageController
-                          .instance.currentLoginPageIndex.value]),
+                  controller.authenticationWidgets[
+                      controller.currentLoginPageIndex.value]),
             ),
           ),
         ],

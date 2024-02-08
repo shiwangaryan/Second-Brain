@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
@@ -11,6 +12,8 @@ class SignupPageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDarkTheme =
         (MediaQuery.of(context).platformBrightness) == Brightness.dark;
+    final controller = Get.put(LoginSignupPageController());
+
 
     return Container(
       height: HelperFunctions.screenHeight() * 0.54,
@@ -33,7 +36,7 @@ class SignupPageContainer extends StatelessWidget {
                 Star(isDarkTheme: isDarkTheme),
                 TextButton(
                   onPressed: () =>
-                      LoginSignupPageController.instance.backPageController(),
+                      controller.backPageController(),
                   child: Text(
                     'Back',
                     style: TextStyle(
