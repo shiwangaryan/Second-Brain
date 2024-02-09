@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solution_challenge_app/features/home/screens/home/home.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -39,7 +40,7 @@ class NavigatorMenuController extends GetxController {
 
   // screens
   final screen = [
-    Container(color: Colors.amber),
+    HomeScreen(),
     Container(color: Colors.blue),
     Container(color: Colors.red),
     Container(color: Colors.green)
