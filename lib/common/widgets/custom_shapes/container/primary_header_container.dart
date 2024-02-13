@@ -19,7 +19,7 @@ class PrimaryHeaderContainer extends StatelessWidget {
       circleBgColor: circleBgColor,
       child: Container(
         width: HelperFunctions.screenWidth(),
-        height: 450,
+        height: 500,
         color: const Color(0xFF1E90FF),
         child: Stack(
           children: [
@@ -32,6 +32,11 @@ class PrimaryHeaderContainer extends StatelessWidget {
               top: 160,
               right: -170,
               child: CircularShape(shapeColor: circleBgColor.withOpacity(0.2)),
+            ),
+            Positioned(
+              bottom: -200,
+              right: 40,
+              child: CircularShape(shapeColor: circleBgColor.withOpacity(0.3)),
             ),
             child,
           ],

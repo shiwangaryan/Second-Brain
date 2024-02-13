@@ -90,7 +90,7 @@ class LoginSignupPageContainer extends StatelessWidget {
                 ),
                 //
                 // ------- Gap inbetween -------
-                SizedBox(width: 6),
+                const SizedBox(width: 6),
                 //
                 // ------- Sign Up Button -------
                 Expanded(

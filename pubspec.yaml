@@ -21,7 +21,8 @@ dependencies:
   url_launcher: ^6.1.12
   smooth_page_indicator: ^1.1.0
   carousel_slider: ^4.2.1
-
+  device_calendar: ^4.3.2
+  # flutter_native_timezone: ^2.0.0
   # Icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
@@ -30,6 +31,7 @@ dependencies:
 
   # State Management
   get: ^4.6.6
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +48,7 @@ flutter:
     - assets/logos/
     - assets/images/login_page/
     - assets/images/appbar/
+    - assets/images/image_carousel/
 
   fonts:
     - family: Poppins

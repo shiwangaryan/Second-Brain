@@ -1,4 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="solution_challenge_app"
+>
+<uses-permission android:name="android.permission.READ_CALENDAR" />
+<uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+<uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="solution_challenge_app"
         android:name="${applicationName}"

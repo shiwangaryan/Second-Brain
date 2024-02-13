@@ -40,10 +40,10 @@ class NavigatorMenuController extends GetxController {
 
   // screens
   final screen = [
-    HomeScreen(),
+    const HomeScreen(),
     Container(color: Colors.blue),
     Container(color: Colors.red),
-    Container(color: Colors.green)
+    Container(color: Colors.green),
   ];
 }
 
