@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/authentication/controllers/login_signup/login_signup_pages_controller.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
+import 'package:solution_challenge_app/utils/logging/firebase_authentication.dart';
 
 class LoginSignupPageContainer extends StatelessWidget {
   const LoginSignupPageContainer({
@@ -18,7 +19,7 @@ class LoginSignupPageContainer extends StatelessWidget {
       width: HelperFunctions.screenWidth() * 0.94,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
-        color: isDarkTheme ?const  Color(0XFF1A1A1A) : const Color(0XFFFFFFFF),
+        color: isDarkTheme ? const Color(0XFF1A1A1A) : const Color(0XFFFFFFFF),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -38,7 +39,9 @@ class LoginSignupPageContainer extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: 28.0,
                   fontWeight: FontWeight.w600,
-                  color: isDarkTheme ? const Color(0XFFFFFFFF) : const Color(0XFF1A1A1A),
+                  color: isDarkTheme
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFF1A1A1A),
                 ),
               ),
             ),
@@ -138,7 +141,9 @@ class IconButton extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () async {
+                await Authentication.signInWithGoogle(context: context);
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),

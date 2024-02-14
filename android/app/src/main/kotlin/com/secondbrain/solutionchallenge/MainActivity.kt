@@ -1,4 +1,4 @@
-package com.example.solution_challenge_app
+package com.secondbrain.solutionchallenge
 
 import io.flutter.embedding.android.FlutterActivity
 
