@@ -16,13 +16,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
     'https://plus.unsplash.com/premium_photo-1707413391465-82ac03dd5555',
     'https://images.unsplash.com/photo-1707432777342-3cf708f95065',
   ];
-  // [
-  //   'assets/images/image_carousel/old_friends_beach.jpg',
-  //   'assets/images/image_carousel/old_friends_chatting.jpg',
-  //   'assets/images/image_carousel/old_friends_outing.jpg',
-  //   'assets/images/image_carousel/old_friends_party.jpg',
-  //   'assets/images/image_carousel/old_friends.jpg',
-  // ];
+
   @override
   Widget build(BuildContext context) {
     return Column(

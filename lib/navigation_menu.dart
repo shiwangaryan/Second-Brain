@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/home/screens/home/home.dart';
+import 'package:solution_challenge_app/features/music/screen/music.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -13,6 +14,7 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: Obx(
         () => NavigationBar(
+            backgroundColor: Colors.transparent,
             height: 60,
             elevation: 0,
             selectedIndex: controller.selectionindex.value,
@@ -41,7 +43,7 @@ class NavigatorMenuController extends GetxController {
   // screens
   final screen = [
     const HomeScreen(),
-    Container(color: Colors.blue),
+    MusicPage(),
     Container(color: Colors.red),
     Container(color: Colors.green),
   ];

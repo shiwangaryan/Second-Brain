@@ -20,17 +20,29 @@ dependencies:
   logger: ^2.0.1
   url_launcher: ^6.1.12
   smooth_page_indicator: ^1.1.0
+  change_app_package_name: ^1.1.0
   carousel_slider: ^4.2.1
-  google_sign_in: ^6.2.1
-  googleapis: ^12.0.0
+
+  #authentication
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
-  change_app_package_name: ^1.1.0
+
+  #google signin & api
+  google_sign_in: ^6.2.1
+  googleapis: ^12.0.0
   googleapis_auth: ^1.4.1
+
+  #calendar
   syncfusion_flutter_calendar: ^24.2.5+1
 
+  #music playing
+  rxdart: ^0.27.7
+  just_audio: ^0.9.36
+
+  #icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
+
   # SVG images
   flutter_svg: ^2.0.9
 
@@ -54,6 +66,7 @@ flutter:
     - assets/images/login_page/
     - assets/images/appbar/
     - assets/images/image_carousel/
+    - assets/music/
 
   fonts:
     - family: Poppins

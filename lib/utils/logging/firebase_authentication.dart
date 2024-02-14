@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:solution_challenge_app/features/home/screens/home/home.dart';
 import 'package:solution_challenge_app/navigation_menu.dart';
 
 class Authentication {
+  //
+  //snackbar
+  //
   static SnackBar customSnackBar({required String content}) {
     return SnackBar(
       backgroundColor: Colors.black,
@@ -22,6 +24,9 @@ class Authentication {
     );
   }
 
+  //
+  //Initalise firebase
+  //
   static Future<FirebaseApp> initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -35,34 +40,15 @@ class Authentication {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      Get.to(NavigationMenu());
+      Get.to(const NavigationMenu());
     }
 
     return firebaseApp;
   }
 
-  // static Future<UserCredential> signInWithGoogle() async {
-  //   try {
-  //     // Trigger the authentication flow
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-  //     // Obtain the auth details from the request
-  //     final GoogleSignInAuthentication? googleAuth =
-  //         await googleUser?.authentication;
-
-  //     // Create a new credential
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth?.accessToken,
-  //       idToken: googleAuth?.idToken,
-  //     );
-
-  //     // Once signed in, return the UserCredential
-
-  //     return await FirebaseAuth.instance.signInWithCredential(credential);
-  //   } on FirebaseAuthException catch (error) {
-  //     throw 'Error siging in with Google';
-  //   }
-  // }
+  //
+  //SignIN with Google
+  //
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
@@ -76,33 +62,37 @@ class Authentication {
 
         user = userCredential.user;
         if (user != null) {
-          Get.to(NavigationMenu());
+          Get.to(const NavigationMenu());
         }
       } catch (e) {
         print(e);
       }
     } else {
+      // Trigger the authentication flow
       final GoogleSignIn googleSignIn = GoogleSignIn();
 
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
+        // Obtain the auth details from the request
         final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
 
+        // Create a new credential
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
 
         try {
+          // Once signed in, return the UserCredential
           final UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
           user = userCredential.user;
           if (user != null) {
-            Get.to(HomeScreen());
+            Get.to(const NavigationMenu());
           }
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
@@ -133,6 +123,9 @@ class Authentication {
     return user;
   }
 
+  //
+  //SignOut
+  //
   static Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 

@@ -57,7 +57,6 @@ class HomeScreen extends StatelessWidget {
                                   image: AssetImage(
                                       'assets/images/appbar/shiwang_profile_photo.jpg'),
                                   fit: BoxFit.cover,
-                                  // alignment: Alignment.topLeft,
                                 )))
                       ],
                     ),
