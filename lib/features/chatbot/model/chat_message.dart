@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
 
 class ChatMessage extends StatelessWidget {
-  const ChatMessage({super.key, required this.sender, required this.message});
+  const ChatMessage({super.key, required this.sender, required this.message, this.loading});
 
   final String sender;
   final String message;
+  final Widget? loading;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment:
+          sender == 'user' ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 16),
-          child: const CircleAvatar(
-            child: Icon(Icons.person),
+          constraints:
+              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+          decoration: BoxDecoration(
+            color: Colors.black45.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          margin: const EdgeInsets.only(top: 2),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+            child: message!= '' ? Text(
+              message,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ) : loading,
           ),
         ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                sender,
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 2),
-                child: Text(
-                  message,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-            ],
-          ),
-        ),
+        const SizedBox(height: 15),
       ],
     );
   }

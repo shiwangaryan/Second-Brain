@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart';
 import 'package:solution_challenge_app/common/widgets/custom_shapes/container/primary_header_container.dart';
@@ -13,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     const circleBgColor = Color.fromARGB(255, 195, 225, 255);
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
@@ -24,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 32.0),
                     child: CustomAppBar(
-                      title: Column(
+                      title: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   image: AssetImage(
                                       'assets/images/appbar/shiwang_profile_photo.jpg'),
                                   fit: BoxFit.cover,
@@ -61,8 +60,8 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 32.0),
                     child: Text(
                       'Memories',
                       style: TextStyle(
@@ -73,9 +72,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.only(top: 25.0, right: 20, left: 20),
+                        EdgeInsets.only(top: 25.0, right: 20, left: 20),
                     child: ImageCarousel(),
                   ),
                 ],

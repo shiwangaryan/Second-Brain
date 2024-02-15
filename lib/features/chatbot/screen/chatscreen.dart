@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/chatbot/model/chat_message.dart';
 import 'package:google_gemini/google_gemini.dart';
 
@@ -12,6 +14,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> messages = [];
+  bool loading = false;
   TextEditingController textEditingController = TextEditingController();
   StreamSubscription? subscription;
   final gemini =
@@ -28,18 +31,32 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
+  Widget loadingIndicator() {
+    return const SpinKitPulse(color: Colors.white, size: 30);
+  }
+
   void sendMessageFunction() async {
     ChatMessage message =
         ChatMessage(sender: 'user', message: textEditingController.text);
 
     setState(() {
       messages.insert(0, message);
+      loading = true;
+      // messages.insert(
+      //     0,
+      //     ChatMessage(
+      //       sender: 'loading',
+      //       message: '',
+      //       loading: loadingIndicator(),
+      //     ));
     });
     textEditingController.clear();
 
     try {
       final response = await gemini.generateFromText(message.message);
       setState(() {
+        // messages.removeAt(0);
+        loading = false;
         messages.insert(
           0,
           ChatMessage(sender: 'Serenity', message: response.text),
@@ -52,12 +69,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget SendMessage() {
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 15),
           Expanded(
@@ -65,11 +82,13 @@ class _ChatScreenState extends State<ChatScreen> {
               controller: textEditingController,
               onSubmitted: (value) => sendMessageFunction(),
               decoration: InputDecoration(
-                  hintText: 'Talk to us',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(12),
-                  )),
+                contentPadding: const EdgeInsets.all(8),
+                hintText: 'Talk to us',
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ),
           IconButton(
@@ -83,8 +102,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -98,9 +115,25 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: const CustomAppBar(),
+        appBar: const ChatScreenAppBar(),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 8),
+            const SizedBox(
+              width: 325,
+              height: 41,
+              child: Text(
+                "Hey I'm Serenity, a chatbot here for helping you, feel free to ask me anything!",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
             Flexible(
               child: ListView.builder(
                 reverse: true,
@@ -113,9 +146,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
               ),
             ),
+            loading == true
+                ? SizedBox(child: loadingIndicator())
+                : SizedBox(height: 0),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 16),
               child: SendMessage(),
             ),
           ],
@@ -125,8 +161,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
+class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ChatScreenAppBar({
     super.key,
   });
 
@@ -137,13 +173,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
       centerTitle: true,
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Get.back(),
+          color: Colors.white,
+        ),
+      ),
       title: const Padding(
         padding: EdgeInsets.only(top: 35.0, bottom: 20),
         child: Text(
           'Serenity',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 35,
+            fontSize: 30,
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
@@ -153,6 +197,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(95);
 }
