@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/music/model/song_model.dart';
+import 'package:solution_challenge_app/features/music/screen/song_screen.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
@@ -17,9 +18,11 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.toNamed('/song', arguments: song);
-      },
+      onTap: () => Get.to(
+        SongScreen(song: song),
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      ),
       child: Container(
         margin: const EdgeInsets.only(right: 12),
         child: Stack(
@@ -68,7 +71,7 @@ class SongCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              song.description,
+                              song.singer,
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontFamily: 'Poppins',

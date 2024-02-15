@@ -39,6 +39,9 @@ dependencies:
   rxdart: ^0.27.7
   just_audio: ^0.9.36
 
+  #chatgpt
+  chat_gpt_sdk: ^3.0.1
+
   #icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2

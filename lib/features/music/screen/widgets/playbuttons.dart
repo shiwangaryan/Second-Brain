@@ -22,6 +22,9 @@ class _PlayerButtonsState extends State<PlayerButtons> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        //-----------------------------
+        //prev button
+        //-----------------------------
         StreamBuilder<SequenceState?>(
           stream: widget.audioPlayer.sequenceStateStream,
           builder: ((context, snapshot) {
@@ -44,6 +47,9 @@ class _PlayerButtonsState extends State<PlayerButtons> {
             );
           }),
         ),
+        //-----------------------------
+        //play/resume/replay
+        //-----------------------------
         StreamBuilder<PlayerState>(
           stream: widget.audioPlayer.playerStateStream,
           builder: ((context, snapshot) {
@@ -99,6 +105,9 @@ class _PlayerButtonsState extends State<PlayerButtons> {
             }
           }),
         ),
+        //-----------------------------
+        //next button
+        //-----------------------------
         StreamBuilder<SequenceState?>(
           stream: widget.audioPlayer.sequenceStateStream,
           builder: ((context, snapshot) {

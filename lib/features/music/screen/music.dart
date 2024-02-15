@@ -43,7 +43,7 @@ class MusicPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 MusicSections(
-                  section_title: 'Soothing Tunes',
+                  section_title: 'Calm Melodies',
                   songs: songs,
                 ),
                 SizedBox(height: 8),
@@ -51,11 +51,55 @@ class MusicPage extends StatelessWidget {
                   section_title: 'Toe Tapping Beats',
                   songs: songs,
                 ),
+                SizedBox(height: 36),
+                FinishingRow(),
+                SizedBox(height: 8),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class FinishingRow extends StatelessWidget {
+  const FinishingRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0, top: 2),
+          child: Icon(
+            Icons.circle,
+            color: Colors.white,
+            size: 8,
+          ),
+        ),
+        Text(
+          'tune that soothes',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 2),
+          child: Icon(
+            Icons.circle,
+            color: Colors.white,
+            size: 8,
+          ),
+        ),
+      ],
     );
   }
 }
