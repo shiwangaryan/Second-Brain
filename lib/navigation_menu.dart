@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/home/screens/home/home.dart';
 import 'package:solution_challenge_app/features/music/screen/music.dart';
+import 'package:solution_challenge_app/features/music/screen/song_screen.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -43,7 +44,7 @@ class NavigatorMenuController extends GetxController {
   // screens
   final screen = [
     const HomeScreen(),
-    MusicPage(),
+    SongScreen(),
     Container(color: Colors.red),
     Container(color: Colors.green),
   ];
