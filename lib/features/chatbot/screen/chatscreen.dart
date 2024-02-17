@@ -14,11 +14,11 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> messages = [];
-  bool loading = false;
-  TextEditingController textEditingController = TextEditingController();
-  StreamSubscription? subscription;
   final gemini =
       GoogleGemini(apiKey: 'AIzaSyCnlDOOB8f3bx4szZEBe3ZcGHo1TTpFxdg');
+  TextEditingController textEditingController = TextEditingController();
+  StreamSubscription? subscription;
+  bool loading = false;
 
   @override
   void initState() {
@@ -42,20 +42,12 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {
       messages.insert(0, message);
       loading = true;
-      // messages.insert(
-      //     0,
-      //     ChatMessage(
-      //       sender: 'loading',
-      //       message: '',
-      //       loading: loadingIndicator(),
-      //     ));
     });
     textEditingController.clear();
 
     try {
       final response = await gemini.generateFromText(message.message);
       setState(() {
-        // messages.removeAt(0);
         loading = false;
         messages.insert(
           0,
@@ -148,7 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             loading == true
                 ? SizedBox(child: loadingIndicator())
-                : SizedBox(height: 0),
+                : const SizedBox(height: 0),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 16),
@@ -161,6 +153,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+//-----------
+//app bar
+//-----------
 class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatScreenAppBar({
     super.key,
@@ -197,5 +192,5 @@ class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(95);
+  Size get preferredSize => const Size.fromHeight(95);
 }

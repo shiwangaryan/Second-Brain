@@ -5,5 +5,5 @@ import 'package:solution_challenge_app/utils/logging/firebase_authentication.dar
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Authentication.initializeFirebase();
-  runApp(App());
+  runApp(const App());
 }

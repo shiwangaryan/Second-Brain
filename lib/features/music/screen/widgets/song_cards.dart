@@ -83,7 +83,7 @@ class SongCard extends StatelessWidget {
                         ),
                         Icon(
                           Icons.play_circle,
-                          color: Color.fromARGB(255, 0, 104, 156),
+                          color: Colors.black87,
                         )
                       ],
                     ),

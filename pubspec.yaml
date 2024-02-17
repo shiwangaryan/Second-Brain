@@ -73,6 +73,7 @@ flutter:
     - assets/images/appbar/
     - assets/images/image_carousel/
     - assets/music/
+    - assets/medicine/
 
   fonts:
     - family: Poppins

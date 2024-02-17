@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ChatMessage extends StatelessWidget {
-  const ChatMessage({super.key, required this.sender, required this.message, this.loading});
+  const ChatMessage({super.key, required this.sender, required this.message});
 
   final String sender;
   final String message;
-  final Widget? loading;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +21,17 @@ class ChatMessage extends StatelessWidget {
           ),
           margin: const EdgeInsets.only(top: 2),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
-            child: message!= '' ? Text(
-              message,
-              style: const TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-            ) : loading,
-          ),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+              child: Text(
+                message,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              )),
         ),
         const SizedBox(height: 15),
       ],

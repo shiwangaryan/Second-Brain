@@ -20,7 +20,16 @@ class PrimaryHeaderContainer extends StatelessWidget {
       child: Container(
         width: HelperFunctions.screenWidth(),
         height: 500,
-        color: const Color(0xFF1E90FF),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0XFF55d0ff),
+              Color(0XFF0080bf),
+            ],
+          ),
+        ),
         child: Stack(
           children: [
             Positioned(

@@ -58,14 +58,15 @@ class _PlayerButtonsState extends State<PlayerButtons> {
               final processingState = playerState!.processingState;
               hasPreviousSong = widget.audioPlayer.hasPrevious;
               hasNextSong = widget.audioPlayer.hasNext;
+              
 
               if (processingState == ProcessingState.loading ||
                   processingState == ProcessingState.buffering) {
                 return Container(
                   width: 64,
                   height: 64,
-                  margin: EdgeInsets.all(10),
-                  child: Container(
+                  margin: const EdgeInsets.all(10),
+                  child: const SizedBox(
                     height: 40,
                     width: 40,
                     child: CircularProgressIndicator(),
