@@ -13,20 +13,33 @@ class _MedicinePageState extends State<MedicinePage> {
   TextEditingController medicineName = TextEditingController();
   TextEditingController medicineDosage = TextEditingController();
   TextEditingController medicineDuration = TextEditingController();
-  TextEditingController medicineStock = TextEditingController();
   List<MedicineCard> medicineCardList = [
-    MedicineCard(name: 'aspirin', dosage: '2 times a day')
+    const MedicineCard(
+      name: 'Aspirin',
+      dosage: '2 times a day',
+      duration: '3 months',
+      stock: 10,
+    )
   ];
 
   void addMedicineCard() {
-    MedicineCard medicineCard =
-        MedicineCard(name: medicineName.text, dosage: medicineDosage.text);
-    medicineName.clear();
-    medicineDosage.clear();
+    if (medicineName.text != '' &&
+        medicineDosage.text != '' &&
+        medicineDuration.text != '') {
+      MedicineCard medicineCard = MedicineCard(
+        name:
+            "${medicineName.text[0].toUpperCase()}${medicineName.text.substring(1)}",
+        dosage: medicineDosage.text,
+        duration: medicineDuration.text,
+      );
+      medicineName.clear();
+      medicineDosage.clear();
+      medicineDuration.clear();
 
-    setState(() {
-      medicineCardList.insert(0, medicineCard);
-    });
+      setState(() {
+        medicineCardList.insert(0, medicineCard);
+      });
+    }
   }
 
   void addMedicineDialogue() {
@@ -45,21 +58,18 @@ class _MedicinePageState extends State<MedicinePage> {
           content: Form(
             child: SizedBox(
               width: 300,
-              height: 270,
+              height: 200,
               child: Column(
                 children: [
-                  InfoFormField(
+                  StringInfoFormField(
                       text: 'Medicine name', controller: medicineName),
                   const SizedBox(height: 8),
-                  InfoFormField(
+                  StringInfoFormField(
                       text: 'Dosage eg: 2pm, 8pm', controller: medicineDosage),
                   const SizedBox(height: 8),
-                  InfoFormField(
+                  StringInfoFormField(
                       text: 'Duration eg: 4 months',
                       controller: medicineDuration),
-                  const SizedBox(height: 8),
-                  InfoFormField(
-                      text: 'Stock available', controller: medicineStock),
                 ],
               ),
             ),
@@ -77,7 +87,6 @@ class _MedicinePageState extends State<MedicinePage> {
                     medicineName.clear();
                     medicineDosage.clear();
                     medicineDuration.clear();
-                    medicineStock.clear();
                     FocusScope.of(context).unfocus();
                   },
                   child: Container(
@@ -199,8 +208,8 @@ class _MedicinePageState extends State<MedicinePage> {
 
 //
 // other widgets
-class InfoFormField extends StatelessWidget {
-  const InfoFormField({
+class StringInfoFormField extends StatelessWidget {
+  const StringInfoFormField({
     super.key,
     required this.text,
     required this.controller,
@@ -213,6 +222,34 @@ class InfoFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      decoration: InputDecoration(
+        hintText: text,
+        hintStyle: const TextStyle(fontSize: 13, color: Colors.black54),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.95),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none),
+      ),
+    );
+  }
+}
+
+class IntegerInfoFormField extends StatelessWidget {
+  const IntegerInfoFormField({
+    super.key,
+    required this.text,
+    required this.controller,
+  });
+
+  final String text;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: text,
         hintStyle: const TextStyle(fontSize: 13, color: Colors.black54),
