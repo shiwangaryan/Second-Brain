@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solution_challenge_app/features/medicine/model/medicine_card_class.dart';
+import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_card_class.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_appbar.dart';
 
 class MedicinePage extends StatefulWidget {
@@ -48,16 +48,33 @@ class _MedicinePageState extends State<MedicinePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: const Color(0xFF040404),
-          title: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.0),
-            child: Center(
-              child:
-                  Text('Add Medicine', style: TextStyle(color: Colors.white)),
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: Center(
+                  child: Text('Add Medicine',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24.0, top: 1),
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 22,
+                  ),
+                ),
+              )
+            ],
           ),
           content: Form(
             child: SizedBox(
-              width: 300,
+              width: 280,
               height: 200,
               child: Column(
                 children: [
@@ -89,8 +106,8 @@ class _MedicinePageState extends State<MedicinePage> {
                     medicineDuration.clear();
                     FocusScope.of(context).unfocus();
                   },
-                  child: Container(
-                    child: const Text(
+                  child: const SizedBox(
+                    child: Text(
                       'Clear',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
@@ -138,7 +155,7 @@ class _MedicinePageState extends State<MedicinePage> {
         children: [
           Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: MedicinePageAppbar(),
+            appBar: const MedicinePageAppbar(),
             body: Column(
               children: [
                 const SizedBox(height: 36),
@@ -156,7 +173,7 @@ class _MedicinePageState extends State<MedicinePage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 35.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 385,
                       child: GridView.builder(
                         gridDelegate:

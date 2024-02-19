@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solution_challenge_app/features/chatbot/screen/chatscreen.dart';
 import 'package:solution_challenge_app/features/home/screens/home/home.dart';
+import 'package:solution_challenge_app/features/journal/screens/journal.dart';
 import 'package:solution_challenge_app/features/medicine/screen/medicinescreen.dart';
 import 'package:solution_challenge_app/features/music/screen/music.dart';
 
-class NavigationMenu extends StatelessWidget {
+class NavigationMenu extends GetMaterialApp {
   const NavigationMenu({super.key});
 
   @override
@@ -70,7 +71,7 @@ class NavigatorMenuController extends GetxController {
   final screen = [
     const HomeScreen(),
     const MusicPage(),
-    Container(color: Colors.green),
+    const JournalScreen(),
     const MedicinePage(),
   ];
 }

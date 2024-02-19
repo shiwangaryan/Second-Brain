@@ -32,18 +32,35 @@ class MedicineCard extends StatelessWidget {
               filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
               child: AlertDialog(
                 backgroundColor: Colors.white.withOpacity(0.88),
-                title: const Padding(
-                  padding: EdgeInsets.only(bottom: 8.0),
-                  child: Center(
-                    child: Text(
-                      'Your Medicine',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      child: Center(
+                        child: Text(
+                          'Your Medicine',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24.0, top: 1),
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.black,
+                          size: 22,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 content: Form(
                   child: SizedBox(

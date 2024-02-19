@@ -63,6 +63,9 @@ class MusicPage extends StatelessWidget {
   }
 }
 
+//-----------------------
+// all the widgets below:- 
+//-----------------------
 class FinishingRow extends StatelessWidget {
   const FinishingRow({
     super.key,
