@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_card_class.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_appbar.dart';
 
@@ -14,31 +17,35 @@ class _MedicinePageState extends State<MedicinePage> {
   TextEditingController medicineName = TextEditingController();
   TextEditingController medicineDosage = TextEditingController();
   TextEditingController medicineDuration = TextEditingController();
-  List<MedicineCard> medicineCardList = [
-    const MedicineCard(
-      name: 'Aspirin',
-      dosage: '2 times a day',
-      duration: '3 months',
-      stock: 10,
-    )
-  ];
 
-  void addMedicineCard() {
+  late List<dynamic> medicineCardList = [];
+
+  /// This method is used to add a new medicine card to the Hive box.
+  ///
+  /// It first checks if the text fields for medicine name, dosage, and duration are not empty.
+  /// If they are not empty, it creates a map with the medicine data where the name is capitalized.
+  /// Then, it opens the Hive box named 'medicines' and adds the medicine data to it.
+  /// After the data is added, it logs a message and clears the text fields.
+  /// Finally, it calls `setState` to rebuild the widget with the updated medicines.
+  void addMedicineCard() async {
     if (medicineName.text != '' &&
         medicineDosage.text != '' &&
         medicineDuration.text != '') {
-      MedicineCard medicineCard = MedicineCard(
-        name:
+      var medicineData = {
+        'name':
             "${medicineName.text[0].toUpperCase()}${medicineName.text.substring(1)}",
-        dosage: medicineDosage.text,
-        duration: medicineDuration.text,
-      );
+        'dosage': medicineDosage.text,
+        'duration': medicineDuration.text,
+      };
+      var box = await Hive.openBox('medicines');
+      box.add(medicineData);
+      log('Added!');
       medicineName.clear();
       medicineDosage.clear();
       medicineDuration.clear();
 
       setState(() {
-        medicineCardList.insert(0, medicineCard);
+        getMedicines();
       });
     }
   }
@@ -133,6 +140,20 @@ class _MedicinePageState extends State<MedicinePage> {
     );
   }
 
+  Future<void> getMedicines() async {
+    var box = await Hive.openBox('medicines');
+    setState(() {
+      medicineCardList = box.values.toList();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMedicines();
+  }
+
   @override
   Widget build(BuildContext context) {
     //main return of th ebuild function
@@ -182,7 +203,17 @@ class _MedicinePageState extends State<MedicinePage> {
                         scrollDirection: Axis.vertical,
                         itemCount: medicineCardList.length,
                         itemBuilder: (context, index) {
-                          return medicineCardList[index];
+                          var medicine = medicineCardList[index];
+                          return MedicineCard(
+                            name: medicine['name'],
+                            dosage: medicine['dosage'],
+                            duration: medicine['duration'],
+                            // () {
+                            //   setState(() {
+                            //     medicineCardList.removeAt(index);
+                            //   });
+                            // },
+                          );
                         },
                       ),
                     ),

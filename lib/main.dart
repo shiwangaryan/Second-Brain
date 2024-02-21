@@ -12,6 +12,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('user');
   await Hive.openBox('memories');
+  await Hive.openBox('medicines');
   runApp(const App());
 }
 
