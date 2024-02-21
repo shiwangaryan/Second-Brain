@@ -4,8 +4,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:solution_challenge_app/features/home/screens/home/home.dart';
 import 'package:solution_challenge_app/firebase/gauth.dart';
+import 'package:solution_challenge_app/navigation_menu.dart';
 import 'package:solution_challenge_app/utils/helpers/helper_function.dart';
 
 class LoginPage extends StatefulWidget {
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                               box.put('email', email);
                               box.put('pfp', photoUrl);
                               box.put('user', user.uid);
-                              Get.offAll(() => const HomeScreen());
+                              Get.offAll(() => const NavigationMenu());
                             } catch (e) {
                               Get.snackbar('Error:', e.toString());
                             } finally {

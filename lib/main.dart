@@ -11,6 +11,7 @@ void main() async {
   );
   await Hive.initFlutter();
   await Hive.openBox('user');
+  await Hive.openBox('memories');
   runApp(const App());
 }
 
@@ -87,7 +88,7 @@ void main() async {
 //     setState(() {
 //       _isPlaying = true;
 //     });
-    
+
 //   }
 
 //   Future<void> _stopPlaying() async {
@@ -162,4 +163,3 @@ void main() async {
 //       ),
 //     );
 //   }
-

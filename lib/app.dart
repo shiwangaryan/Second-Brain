@@ -22,7 +22,7 @@ class App extends StatelessWidget {
 }
 
 class CheckLogin extends StatefulWidget {
-  const CheckLogin({Key? key}) : super(key: key);
+  const CheckLogin({super.key});
 
   @override
   _CheckLoginState createState() => _CheckLoginState();
@@ -44,7 +44,7 @@ class _CheckLoginState extends State<CheckLogin> {
       });
     }
 
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       ),
