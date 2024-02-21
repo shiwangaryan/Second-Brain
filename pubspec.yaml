@@ -66,6 +66,9 @@ dependencies:
   # State Management
   get: ^4.6.6
   cached_network_image: ^3.3.1
+  hive_flutter: ^1.1.0
+  banner_listtile: ^2.3.0
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -77,7 +80,6 @@ flutter:
   uses-material-design: true
   assets:
     - imageAssets/appbarBackground.gif
-    - assets/icons/
     - assets/images/on_boarding_images/
     - assets/logos/
     - assets/images/login_page/

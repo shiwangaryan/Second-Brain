@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_card_class.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_appbar.dart';
 
@@ -43,97 +44,92 @@ class _MedicinePageState extends State<MedicinePage> {
   }
 
   void addMedicineDialogue() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xFF040404),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0),
-                child: Center(
-                  child: Text('Add Medicine',
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 1),
-                child: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 22,
-                  ),
-                ),
-              )
-            ],
-          ),
-          content: Form(
-            child: SizedBox(
-              width: 280,
-              height: 200,
-              child: Column(
-                children: [
-                  StringInfoFormField(
-                      text: 'Medicine name', controller: medicineName),
-                  const SizedBox(height: 8),
-                  StringInfoFormField(
-                      text: 'Dosage eg: 2pm, 8pm', controller: medicineDosage),
-                  const SizedBox(height: 8),
-                  StringInfoFormField(
-                      text: 'Duration eg: 4 months',
-                      controller: medicineDuration),
-                ],
+    Get.dialog(
+      AlertDialog(
+        backgroundColor: const Color(0xFF040404),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 12.0),
+              child: Center(
+                child:
+                    Text('Add Medicine', style: TextStyle(color: Colors.white)),
               ),
             ),
-          ),
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.grey[800]),
-                  ),
-                  onPressed: () {
-                    medicineName.clear();
-                    medicineDosage.clear();
-                    medicineDuration.clear();
-                    FocusScope.of(context).unfocus();
-                  },
-                  child: const SizedBox(
-                    child: Text(
-                      'Clear',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0, top: 1),
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 22,
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.grey[800]),
-                  ),
-                  onPressed: () => {
-                    addMedicineCard(),
-                    Navigator.pop(context),
-                  },
-                  child: const SizedBox(
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             )
           ],
-        );
-      },
+        ),
+        content: Form(
+          child: SizedBox(
+            width: 280,
+            height: 200,
+            child: Column(
+              children: [
+                StringInfoFormField(
+                    text: 'Medicine name', controller: medicineName),
+                const SizedBox(height: 8),
+                StringInfoFormField(
+                    text: 'Dosage eg: 2pm, 8pm', controller: medicineDosage),
+                const SizedBox(height: 8),
+                StringInfoFormField(
+                    text: 'Duration eg: 4 months',
+                    controller: medicineDuration),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+                ),
+                onPressed: () {
+                  medicineName.clear();
+                  medicineDosage.clear();
+                  medicineDuration.clear();
+                  FocusScope.of(context).unfocus();
+                },
+                child: const SizedBox(
+                  child: Text(
+                    'Clear',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+                ),
+                onPressed: () => {
+                  addMedicineCard(),
+                  Navigator.pop(context),
+                },
+                child: const SizedBox(
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 

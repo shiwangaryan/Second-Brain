@@ -1,10 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:solution_challenge_app/app.dart";
-import 'package:solution_challenge_app/utils/logging/firebase_authentication.dart';
+import 'package:solution_challenge_app/firebase_options.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Authentication.initializeFirebase();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await Hive.initFlutter();
+  await Hive.openBox('user');
+  await Hive.openBox('memories');
   runApp(const App());
 }
 
@@ -81,7 +88,7 @@ void main() async {
 //     setState(() {
 //       _isPlaying = true;
 //     });
-    
+
 //   }
 
 //   Future<void> _stopPlaying() async {
@@ -156,4 +163,3 @@ void main() async {
 //       ),
 //     );
 //   }
-

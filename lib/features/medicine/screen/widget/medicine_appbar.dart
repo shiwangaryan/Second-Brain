@@ -1,11 +1,38 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart';
 
-class MedicinePageAppbar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const MedicinePageAppbar({
-    super.key,
-  });
+import '../../../../firebase/gauth.dart';
+
+class MedicinePageAppbar extends StatefulWidget implements PreferredSizeWidget {
+  const MedicinePageAppbar({Key? key}) : super(key: key);
+
+  @override
+  _MedicinePageAppbarState createState() => _MedicinePageAppbarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(95);
+}
+
+class _MedicinePageAppbarState extends State<MedicinePageAppbar> {
+  late String? name = "";
+  late String? email = "";
+  late String? imageUrl = "";
+
+  @override
+  void initState() {
+    super.initState();
+    setData();
+  }
+
+  Future<void> setData() async {
+    final user = await GoogleAuth().getUser();
+    setState(() {
+      name = user?.displayName;
+      email = user?.email;
+      imageUrl = user?.photoURL;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +68,15 @@ class MedicinePageAppbar extends StatelessWidget
               height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                        'assets/images/appbar/shiwang_profile_photo.jpg'),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                      imageUrl ??
+                          'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+                    ),
                     fit: BoxFit.cover,
                   )))
         ],
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(95);
 }
