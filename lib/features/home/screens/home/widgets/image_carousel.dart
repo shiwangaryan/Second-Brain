@@ -73,7 +73,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                           ),
                           tileColor: Colors.grey[200],
                         ),
-                        ListTile(
+                        const ListTile(
                           title: Text('View All memories'),
                           trailing: Icon(Icons.arrow_forward_ios),
                         ),

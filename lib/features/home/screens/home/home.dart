@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       )),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 25.0, right: 20, left: 20),
                     child: ImageCarousel(),
                   ),

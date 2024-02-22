@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_sound/flutter_sound.dart' as fsound;
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,45 +24,41 @@ class _NewJournalPageState extends State<NewJournalPage> {
   bool isPlaying = false;
   bool isCompleted = false;
   bool isImageSelected = false;
-  late File? imageFile;
+  List<File> imageFiles = [];
+  int numberOfImage = 0;
   ValueNotifier<bool> isPlayingNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    journalContent.insert(0, journalContentEntry());
     init();
+    journalContent.insert(0, journalContentEntry());
   }
 
   Widget journalContentEntry() {
-    return Transform.translate(
-      offset: const Offset(0, -20),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Wrap(children: [
-          TextField(
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            style: const TextStyle(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+      child: TextField(
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+        style: const TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
+            hintText: 'write about it',
+            hintStyle: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w400,
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.5),
             ),
-            decoration: InputDecoration(
-                hintText: 'write about it',
-                hintStyle: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white.withOpacity(0.5),
-                ),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                )),
-          ),
-        ]),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide.none,
+            )),
       ),
     );
   }
@@ -91,8 +88,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
 
     setState(() {
       micOn = false;
-      journalContent.insert(
-        0,
+      journalContent.add(
         AudioItem(
           filePath: filePath[0],
           playFunction: startPlaying,
@@ -126,16 +122,37 @@ class _NewJournalPageState extends State<NewJournalPage> {
   }
 
   Future<void> pausePlaying() async {
-    if(!isCompleted)
-    {await player.pausePlayer();
-    isPlayingNotifier.value = false;}
-
-    // setState(() {
-    //   isPlaying = false;
-    // });
+    if (!isCompleted) {
+      await player.pausePlayer();
+      isPlayingNotifier.value = false;
+    } else if(isCompleted) {
+      isPlayingNotifier.value = false;
+    }
   }
 
+  pickImagefromGallery() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = File(
+            '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
+        final imageBytes = await pickedImage.readAsBytes();
+        await imagePath.writeAsBytes(imageBytes);
 
+        setState(() {
+          imageFiles.insert(numberOfImage, imagePath);
+          numberOfImage += 1;
+          isImageSelected = true;
+        });
+      } else {
+        print('no image selected');
+      }
+    } catch (e) {
+      print('error occured: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -187,7 +204,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
                     ),
               //---camera button
               CustomIconButton(
-                onPressFunc: () {},
+                onPressFunc: () => pickImagefromGallery(),
                 icon: Icons.photo_camera_outlined,
                 size: 30,
               ),
@@ -199,14 +216,12 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         body: Column(
           children: [
-            const SizedBox(height: 20),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 1,
-              color: Colors.white.withOpacity(0.7),
-            ),
+            ///--------heading--------------
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical: 10,
+              ),
               child: TextField(
                 maxLines: null,
                 style: const TextStyle(
@@ -229,6 +244,39 @@ class _NewJournalPageState extends State<NewJournalPage> {
                 ),
               ),
             ),
+
+            ///--------thumbnail image--------------
+
+            isImageSelected
+                ? JournalImageCarousel(
+                    imageFiles: imageFiles,
+                  )
+                : InkWell(
+                    onTap: () => pickImagefromGallery(),
+                    child: Center(
+                      child: Container(
+                        width: 380,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'select a thumbnail image',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black26,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+            ///--------rest of the content--------------
+
             Flexible(
               child: ListView.builder(
                 itemCount: journalContent.length,
@@ -254,6 +302,58 @@ class _NewJournalPageState extends State<NewJournalPage> {
 //all the custom widgets here
 //
 //
+
+class JournalImageCarousel extends StatefulWidget {
+  const JournalImageCarousel({super.key, required this.imageFiles});
+
+  final List<File> imageFiles;
+
+  @override
+  State<JournalImageCarousel> createState() => _JournalImageCarouselState();
+}
+
+class _JournalImageCarouselState extends State<JournalImageCarousel> {
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: widget.imageFiles.length,
+      itemBuilder: (BuildContext context, index, realIndex) {
+        return BuildImage(
+          imageFile: widget.imageFiles[index],
+        );
+      },
+      options: CarouselOptions(
+        height: 200,
+        autoPlay: false,
+        enlargeCenterPage: true,
+      ),
+    );
+  }
+}
+
+class BuildImage extends StatelessWidget {
+  const BuildImage({
+    super.key,
+    required this.imageFile,
+  });
+
+  final File imageFile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 350,
+      height: 320,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(imageFile),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(15),
+      ),
+    );
+  }
+}
 
 class AudioItem extends StatefulWidget {
   final String filePath;
@@ -347,37 +447,47 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 20),
-        child: IconButton(
-          onPressed: () => Get.back(),
-          color: Colors.white,
-          icon: const Icon(
-            Icons.arrow_back,
+    return Column(
+      children: [
+        AppBar(
+          backgroundColor: Colors.transparent,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 20),
+            child: IconButton(
+              onPressed: () => Get.back(),
+              color: Colors.white,
+              icon: const Icon(
+                Icons.arrow_back,
+              ),
+              iconSize: 28,
+            ),
           ),
-          iconSize: 28,
+          actions: [
+            tick
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 10.0, top: 20),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.done,
+                        size: 28,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ],
         ),
-      ),
-      actions: [
-        tick
-            ? Padding(
-                padding: const EdgeInsets.only(right: 10.0, top: 20),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.done,
-                    size: 28,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            : const SizedBox(),
+        const SizedBox(height: 10),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 1,
+          color: Colors.white.withOpacity(0.7),
+        ),
       ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(56);
+  Size get preferredSize => const Size.fromHeight(67);
 }

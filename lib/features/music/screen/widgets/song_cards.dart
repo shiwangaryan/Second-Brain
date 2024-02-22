@@ -20,7 +20,7 @@ class SongCard extends StatelessWidget {
     return InkWell(
       onTap: () => Get.to(
         SongScreen(song: song),
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 800),
         curve: Curves.easeInOut,
       ),
       child: Container(
