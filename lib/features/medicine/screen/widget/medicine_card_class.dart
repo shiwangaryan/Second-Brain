@@ -129,7 +129,7 @@ class MedicineCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.7),
+          color: Colors.white.withOpacity(0.4),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(

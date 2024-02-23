@@ -156,7 +156,7 @@ class _MedicinePageState extends State<MedicinePage> {
 
   @override
   Widget build(BuildContext context) {
-    //main return of th ebuild function
+    //main return of the build function
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -266,6 +266,7 @@ class StringInfoFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: text,
         hintStyle: const TextStyle(fontSize: 13, color: Colors.black54),
@@ -294,6 +295,7 @@ class IntegerInfoFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.number,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: text,
         hintStyle: const TextStyle(fontSize: 13, color: Colors.black54),

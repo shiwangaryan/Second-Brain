@@ -1,14 +1,21 @@
 import 'dart:io';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_sound/flutter_sound.dart' as fsound;
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/custom_icons.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/image_widget.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/journal_audio.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/journal_content_entry.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/journal_image_carousel.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/new_journal_appbar.dart';
 
 class NewJournalPage extends StatefulWidget {
-  const NewJournalPage({super.key});
+  const NewJournalPage({super.key, required this.addToHiveBox});
+
+  final void Function() addToHiveBox;
 
   @override
   State<NewJournalPage> createState() => _NewJournalPageState();
@@ -16,51 +23,25 @@ class NewJournalPage extends StatefulWidget {
 
 class _NewJournalPageState extends State<NewJournalPage> {
   List<Widget> journalContent = [];
+  List<File> imageFiles = [];
+  List<String> audioPaths = [];
   bool tick = true;
-  fsound.FlutterSoundRecorder recorder = fsound.FlutterSoundRecorder();
-  fsound.FlutterSoundPlayer player = fsound.FlutterSoundPlayer();
-  List<String> filePath = [];
   bool micOn = false;
   bool isPlaying = false;
   bool isCompleted = false;
   bool isImageSelected = false;
-  List<File> imageFiles = [];
   int numberOfImage = 0;
+  final contentController = TextEditingController();
+  final headingController = TextEditingController();
+  fsound.FlutterSoundRecorder recorder = fsound.FlutterSoundRecorder();
+  fsound.FlutterSoundPlayer player = fsound.FlutterSoundPlayer();
   ValueNotifier<bool> isPlayingNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     init();
-    journalContent.insert(0, journalContentEntry());
-  }
-
-  Widget journalContentEntry() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        style: const TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: Colors.white,
-        ),
-        decoration: InputDecoration(
-            hintText: 'write about it',
-            hintStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: Colors.white.withOpacity(0.5),
-            ),
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
-            )),
-      ),
-    );
+    journalContent.add(journalContentEntry(contentController));
   }
 
   Future<void> init() async {
@@ -68,7 +49,28 @@ class _NewJournalPageState extends State<NewJournalPage> {
     await Permission.storage.request();
   }
 
-  Future<String?> startRecording() async {
+  void submitContent() async {
+    var content = {
+      'heading': headingController.text,
+      'imagePaths': imageFiles,
+      'content': contentController.text,
+      'audioPaths': audioPaths,
+    };
+
+    var box = await Hive.openBox('journal');
+    box.add(content);
+    widget.addToHiveBox();
+
+    contentController.clear();
+    headingController.clear();
+    recorder.closeRecorder();
+    player.closePlayer();
+    return;
+  }
+
+  //----- recording + playing functions:
+
+  Future<void> startRecording() async {
     final directory = await getApplicationDocumentsDirectory();
     final currentFilePath =
         '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.aac';
@@ -78,32 +80,32 @@ class _NewJournalPageState extends State<NewJournalPage> {
 
     setState(() {
       micOn = true;
-      filePath.insert(0, currentFilePath);
+      audioPaths.add(currentFilePath);
     });
-    return filePath[0];
   }
 
   Future<void> stopRecording() async {
-    await recorder.stopRecorder();
+    final audioPath = await recorder.stopRecorder();
 
     setState(() {
       micOn = false;
       journalContent.add(
         AudioItem(
-          filePath: filePath[0],
-          playFunction: startPlaying,
+          audioPath: audioPath!,
+          playFunction: (audioPath) async {
+            await startPlaying(audioPath);
+          },
           stopFunction: pausePlaying,
           isplayingNotifier: isPlayingNotifier,
         ),
-        // VoiceNotePlayer(audioLocation: filePath[0]),
       );
     });
   }
 
-  Future<void> startPlaying() async {
+  Future<void> startPlaying(String audioPath) async {
     if (!isPlayingNotifier.value) {
       await player.openPlayer();
-      await player.startPlayer(fromURI: filePath[0]);
+      await player.startPlayer(fromURI: audioPath);
       isPlayingNotifier.value = true;
     } else {
       await player.resumePlayer();
@@ -125,10 +127,12 @@ class _NewJournalPageState extends State<NewJournalPage> {
     if (!isCompleted) {
       await player.pausePlayer();
       isPlayingNotifier.value = false;
-    } else if(isCompleted) {
+    } else if (isCompleted) {
       isPlayingNotifier.value = false;
     }
   }
+
+  //----- image picker from gallery func
 
   pickImagefromGallery() async {
     try {
@@ -162,6 +166,8 @@ class _NewJournalPageState extends State<NewJournalPage> {
     super.dispose();
   }
 
+  //----- main build function
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -180,7 +186,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         //appbar
         //----------------------
-        appBar: CustomAppBar(tick: tick),
+        appBar: CustomAppBar(sumbitFunc: () => submitContent()),
         //----------------------
         //bottom app bar
         //----------------------
@@ -216,17 +222,19 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         body: Column(
           children: [
+            ///-----------------------------
             ///--------heading--------------
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 15.0,
-                vertical: 10,
+                vertical: 12,
               ),
               child: TextField(
+                controller: headingController,
                 maxLines: null,
                 style: const TextStyle(
                   fontFamily: 'Poppins',
-                  fontSize: 24,
+                  fontSize: 28,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -248,9 +256,11 @@ class _NewJournalPageState extends State<NewJournalPage> {
             ///--------thumbnail image--------------
 
             isImageSelected
-                ? JournalImageCarousel(
-                    imageFiles: imageFiles,
-                  )
+                ? imageFiles.length == 1
+                    ? BuildImage(imageFile: imageFiles[0])
+                    : JournalImageCarousel(
+                        imageFiles: imageFiles,
+                      )
                 : InkWell(
                     onTap: () => pickImagefromGallery(),
                     child: Center(
@@ -295,199 +305,4 @@ class _NewJournalPageState extends State<NewJournalPage> {
       ),
     );
   }
-}
-
-//
-//
-//all the custom widgets here
-//
-//
-
-class JournalImageCarousel extends StatefulWidget {
-  const JournalImageCarousel({super.key, required this.imageFiles});
-
-  final List<File> imageFiles;
-
-  @override
-  State<JournalImageCarousel> createState() => _JournalImageCarouselState();
-}
-
-class _JournalImageCarouselState extends State<JournalImageCarousel> {
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: widget.imageFiles.length,
-      itemBuilder: (BuildContext context, index, realIndex) {
-        return BuildImage(
-          imageFile: widget.imageFiles[index],
-        );
-      },
-      options: CarouselOptions(
-        height: 200,
-        autoPlay: false,
-        enlargeCenterPage: true,
-      ),
-    );
-  }
-}
-
-class BuildImage extends StatelessWidget {
-  const BuildImage({
-    super.key,
-    required this.imageFile,
-  });
-
-  final File imageFile;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 350,
-      height: 320,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: FileImage(imageFile),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(15),
-      ),
-    );
-  }
-}
-
-class AudioItem extends StatefulWidget {
-  final String filePath;
-  final VoidCallback playFunction;
-  final VoidCallback stopFunction;
-  final ValueNotifier<bool> isplayingNotifier;
-
-  const AudioItem({
-    required this.filePath,
-    required this.playFunction,
-    required this.stopFunction,
-    required this.isplayingNotifier,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<AudioItem> createState() => _AudioItemState();
-}
-
-class _AudioItemState extends State<AudioItem> {
-  bool playing = false;
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: widget.isplayingNotifier,
-        builder: (context, isPlaying, child) {
-          return ListTile(
-              leading: playing
-                  ? const Icon(
-                      Icons.pause_circle_outline_rounded,
-                      color: Colors.white,
-                      size: 40,
-                    )
-                  : const Icon(
-                      Icons.play_circle_outline_rounded,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-              title: Text(
-                playing ? 'Stop Playing' : 'Start Playing',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {
-                setState(() {
-                  playing = !playing;
-                });
-                playing ? widget.playFunction() : widget.stopFunction();
-                // if (widget.isplayingNotifier.value == false) {
-                //   playing = false;
-                // }
-              });
-        });
-  }
-}
-
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({
-    super.key,
-    required this.onPressFunc,
-    required this.icon,
-    required this.size,
-  });
-
-  final void Function() onPressFunc;
-  final IconData icon;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressFunc,
-      icon: Icon(
-        icon,
-        color: Colors.white,
-        size: size,
-      ),
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
-    super.key,
-    required this.tick,
-  });
-
-  final bool tick;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppBar(
-          backgroundColor: Colors.transparent,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 20),
-            child: IconButton(
-              onPressed: () => Get.back(),
-              color: Colors.white,
-              icon: const Icon(
-                Icons.arrow_back,
-              ),
-              iconSize: 28,
-            ),
-          ),
-          actions: [
-            tick
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 10.0, top: 20),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.done,
-                        size: 28,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                : const SizedBox(),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 1,
-          color: Colors.white.withOpacity(0.7),
-        ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(67);
 }

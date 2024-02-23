@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:solution_challenge_app/features/journal/screens/new_journal.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});
@@ -10,6 +12,21 @@ class JournalScreen extends StatefulWidget {
 }
 
 class _JournalScreenState extends State<JournalScreen> {
+  List<dynamic> jounralCard = [];
+
+  @override
+  void initState() {
+    super.initState();
+    openBox();
+  }
+
+  void openBox() async {
+    var box = await Hive.openBox('journal');
+    setState(() {
+      jounralCard = box.values.toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,20 +48,10 @@ class _JournalScreenState extends State<JournalScreen> {
                 padding: const EdgeInsets.only(top: 35.0),
                 child: SizedBox(
                   width: 385,
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisExtent: 260,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 20,
-                    ),
-                    scrollDirection: Axis.vertical,
-                    // itemCount: medicineCardList.length,
-                    itemBuilder: (context, index) {
-                      return;
-                      // return medicineCardList[index];
-                    },
+                  child: StaggeredGrid.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
                   ),
                 ),
               ),
@@ -62,7 +69,7 @@ class _JournalScreenState extends State<JournalScreen> {
               ),
               child: IconButton(
                 onPressed: () {
-                  Get.to(const NewJournalPage());
+                  Get.to(NewJournalPage(addToHiveBox: () => openBox()));
                 },
                 icon: const Icon(
                   Icons.add,

@@ -45,13 +45,13 @@ dependencies:
   #voice note
   audioplayers: ^5.2.1
   permission_handler: ^11.3.0
-
   flutter_sound: ^9.0.5
-  path_provider: ^2.1.2
-  # permission_handler: ^10.0.0
 
-  #path provder for file
-  # path_provider: ^2.1.2
+  #path provider
+  path_provider: ^2.1.2
+
+  #staggered grid view
+  flutter_staggered_grid_view: ^0.7.0
 
   #equatable
   equatable: ^2.0.5
@@ -69,12 +69,16 @@ dependencies:
   hive_flutter: ^1.1.0
   banner_listtile: ^2.3.0
   image_picker: ^1.0.7
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^3.0.1
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.8
 
 flutter:
   uses-material-design: true

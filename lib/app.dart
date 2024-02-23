@@ -1,8 +1,5 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:solution_challenge_app/features/home/screens/home/home.dart";
-import "package:solution_challenge_app/features/journal/screens/journal.dart";
-import "package:solution_challenge_app/features/music/screen/music.dart";
 import "package:solution_challenge_app/login.dart";
 import "package:solution_challenge_app/navigation_menu.dart";
 import "package:solution_challenge_app/utils/theme/theme.dart";
@@ -18,7 +15,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const JournalScreen(),
+      home: const LoginPage(),
     );
   }
 }
