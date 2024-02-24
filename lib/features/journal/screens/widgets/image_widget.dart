@@ -8,16 +8,17 @@ class BuildImage extends StatelessWidget {
     required this.imageFile,
   });
 
-  final File imageFile;
+  final String imageFile;
 
   @override
   Widget build(BuildContext context) {
+    final path = File(imageFile);
     return Container(
       width: 380,
       height: 250,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: FileImage(imageFile),
+          image: FileImage(path),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(15),

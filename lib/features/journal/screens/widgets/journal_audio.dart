@@ -22,39 +22,42 @@ class _AudioItemState extends State<AudioItem> {
   bool playing = false;
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: widget.isplayingNotifier,
-        builder: (context, isPlaying, child) {
-          return ListTile(
-              leading: playing
-                  ? const Icon(
-                      Icons.pause_circle_outline_rounded,
-                      color: Colors.white,
-                      size: 40,
-                    )
-                  : const Icon(
-                      Icons.play_circle_outline_rounded,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-              title: Text(
-                playing ? 'Stop Playing' : 'Start Playing',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+    return Transform.translate(
+      offset: Offset(7, 0),
+      child: ValueListenableBuilder(
+          valueListenable: widget.isplayingNotifier,
+          builder: (context, isPlaying, child) {
+            return ListTile(
+                leading: playing
+                    ? const Icon(
+                        Icons.pause_circle_outline_rounded,
+                        color: Colors.white,
+                        size: 40,
+                      )
+                    : const Icon(
+                        Icons.play_circle_outline_rounded,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                title: Text(
+                  playing ? 'Stop Playing' : 'Start Playing',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              onTap: () {
-                setState(() {
-                  playing = !playing;
+                onTap: () {
+                  setState(() {
+                    playing = !playing;
+                  });
+                  playing
+                      ? widget.playFunction(widget.audioPath)
+                      : widget.stopFunction();
+                  // if (widget.isplayingNotifier.value == false) {
+                  //   playing = false;
+                  // }
                 });
-                playing
-                    ? widget.playFunction(widget.audioPath)
-                    : widget.stopFunction();
-                // if (widget.isplayingNotifier.value == false) {
-                //   playing = false;
-                // }
-              });
-        });
+          }),
+    );
   }
 }

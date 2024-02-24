@@ -14,6 +14,5 @@ void main() async {
   await Hive.openBox('memories');
   await Hive.openBox('medicines');
   await Hive.openBox('journal');
-  // await Isar.initializeIsarCore();
   runApp(const App());
 }

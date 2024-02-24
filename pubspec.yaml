@@ -63,6 +63,9 @@ dependencies:
   # SVG images
   flutter_svg: ^2.0.9
 
+  #pairs in dart
+  pair: ^0.1.2
+
   # State Management
   get: ^4.6.6
   cached_network_image: ^3.3.1

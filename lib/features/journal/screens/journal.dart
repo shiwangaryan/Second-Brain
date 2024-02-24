@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:solution_challenge_app/features/journal/screens/new_journal.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/journal_widget.dart';
 
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});
@@ -12,7 +14,7 @@ class JournalScreen extends StatefulWidget {
 }
 
 class _JournalScreenState extends State<JournalScreen> {
-  List<dynamic> jounralCard = [];
+  List<dynamic> journalCards = [];
 
   @override
   void initState() {
@@ -23,7 +25,7 @@ class _JournalScreenState extends State<JournalScreen> {
   void openBox() async {
     var box = await Hive.openBox('journal');
     setState(() {
-      jounralCard = box.values.toList();
+      journalCards = box.values.toList();
     });
   }
 
@@ -43,18 +45,41 @@ class _JournalScreenState extends State<JournalScreen> {
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: const CustomAppBar(),
-            body: Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 35.0),
-                child: SizedBox(
-                  width: 385,
-                  child: StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 35.0,
+                      right: 18,
+                      left: 18,
+                      bottom: 10,
+                    ),
+                    child: SizedBox(
+                      width: 385,
+                      child: MasonryGridView.builder(
+                        dragStartBehavior: DragStartBehavior.start,
+                        reverse: false,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        gridDelegate:
+                            const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: journalCards.length,
+                        itemBuilder: ((context, index) {
+                          var content =
+                              journalCards[journalCards.length - index - 1];
+                          return JournalWidget(content: content);
+                        }),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(height: 100)
+              ],
             ),
           ),
           Positioned(

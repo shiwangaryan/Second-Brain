@@ -7,7 +7,7 @@ import 'package:solution_challenge_app/features/journal/screens/widgets/image_wi
 class JournalImageCarousel extends StatefulWidget {
   const JournalImageCarousel({super.key, required this.imageFiles});
 
-  final List<File> imageFiles;
+  final List<String> imageFiles;
 
   @override
   State<JournalImageCarousel> createState() => _JournalImageCarouselState();
@@ -25,7 +25,7 @@ class _JournalImageCarouselState extends State<JournalImageCarousel> {
       },
       options: CarouselOptions(
         height: 250,
-        autoPlay: false,
+        autoPlay: true,
         enlargeCenterPage: true,
       ),
     );

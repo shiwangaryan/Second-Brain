@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget journalContentEntry(TextEditingController _textEditingController) {
+Widget journalContentEntry(TextEditingController contentController) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
     child: TextField(
-      controller: _textEditingController,
+      controller: contentController,
       keyboardType: TextInputType.multiline,
       maxLines: null,
       style: const TextStyle(

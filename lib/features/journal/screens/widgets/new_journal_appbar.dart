@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pair/pair.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  CustomAppBar({
     super.key,
-    required this.sumbitFunc,
+    this.submitFunc,
+    required this.tick,
+    this.content,
+    this.journalCards,
   });
 
-  final void Function() sumbitFunc;
+  Future<Pair<bool, int>> Function()? submitFunc;
+  final bool tick;
+  final dynamic content;
+  List<dynamic>? journalCards;
 
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(67);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,17 +43,47 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0, top: 20),
-              child: IconButton(
-                onPressed: () => {sumbitFunc(), Get.back()},
-                icon: const Icon(
-                  Icons.done,
-                  size: 28,
-                  color: Colors.white,
-                ),
-              ),
-            )
+            widget.tick
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 10.0, top: 20),
+                    child: IconButton(
+                      onPressed: () async {
+                        Pair<bool, int> result = await widget.submitFunc!();
+                        bool success = result.key;
+                        int contentKey = result.value;
+                        if (success) {
+                          var box = Hive.box('journal');
+                          var journalContent = await box.get(contentKey);
+                          journalContent['key'] = contentKey;
+                          Get.back();
+                        }
+                      },
+                      icon: const Icon(
+                        Icons.done,
+                        size: 28,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+            // : Padding(
+            //     padding: const EdgeInsets.only(right: 10.0, top: 20),
+            //     child: IconButton(
+            //       onPressed: () async {
+            //         var box = Hive.box('journal');
+            //         await box.delete(widget.content['key']);
+            //         setState(() {
+            //           widget.journalCards = box.values.toList();
+            //         });
+            //         Get.back();
+            //       },
+            //       icon: const Icon(
+            //         Icons.delete_rounded,
+            //         size: 28,
+            //         color: Colors.white,
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
         const SizedBox(height: 10),
@@ -49,7 +95,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(67);
 }

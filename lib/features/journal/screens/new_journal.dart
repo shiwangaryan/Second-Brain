@@ -4,6 +4,7 @@ import 'package:flutter_sound/flutter_sound.dart' as fsound;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pair/pair.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:solution_challenge_app/features/journal/screens/widgets/custom_icons.dart';
 import 'package:solution_challenge_app/features/journal/screens/widgets/image_widget.dart';
@@ -23,7 +24,7 @@ class NewJournalPage extends StatefulWidget {
 
 class _NewJournalPageState extends State<NewJournalPage> {
   List<Widget> journalContent = [];
-  List<File> imageFiles = [];
+  List<String> imageFiles = [];
   List<String> audioPaths = [];
   bool tick = true;
   bool micOn = false;
@@ -41,7 +42,9 @@ class _NewJournalPageState extends State<NewJournalPage> {
   void initState() {
     super.initState();
     init();
-    journalContent.add(journalContentEntry(contentController));
+    journalContent.add(
+      journalContentEntry(contentController),
+    );
   }
 
   Future<void> init() async {
@@ -49,23 +52,54 @@ class _NewJournalPageState extends State<NewJournalPage> {
     await Permission.storage.request();
   }
 
-  void submitContent() async {
-    var content = {
-      'heading': headingController.text,
-      'imagePaths': imageFiles,
-      'content': contentController.text,
-      'audioPaths': audioPaths,
-    };
+  //----- submit content
 
-    var box = await Hive.openBox('journal');
-    box.add(content);
-    widget.addToHiveBox();
+  Future<Pair<bool, int>> submitContent() async {
+    if (headingController.text.isEmpty || contentController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('heading & content both are empty'),
+            actions: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black87.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(20)),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+      return const Pair<bool, int>(false, -1);
+    } else {
+      var journalContent = {
+        'heading': headingController.text,
+        'imagePaths': imageFiles,
+        'content': contentController.text,
+        'audioPaths': audioPaths,
+      };
 
-    contentController.clear();
-    headingController.clear();
-    recorder.closeRecorder();
-    player.closePlayer();
-    return;
+      var box = Hive.box('journal');
+      var contentKey = await box.add(journalContent);
+      widget.addToHiveBox();
+
+      contentController.clear();
+      headingController.clear();
+      recorder.closeRecorder();
+      player.closePlayer();
+      return Pair<bool, int>(true, contentKey);
+    }
   }
 
   //----- recording + playing functions:
@@ -146,7 +180,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
         await imagePath.writeAsBytes(imageBytes);
 
         setState(() {
-          imageFiles.insert(numberOfImage, imagePath);
+          imageFiles.insert(numberOfImage, imagePath.path);
           numberOfImage += 1;
           isImageSelected = true;
         });
@@ -186,7 +220,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         //appbar
         //----------------------
-        appBar: CustomAppBar(sumbitFunc: () => submitContent()),
+        appBar: CustomAppBar(submitFunc: () => submitContent(), tick: true),
         //----------------------
         //bottom app bar
         //----------------------
@@ -222,7 +256,6 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         body: Column(
           children: [
-            ///-----------------------------
             ///--------heading--------------
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -232,6 +265,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
               child: TextField(
                 controller: headingController,
                 maxLines: null,
+                maxLength: 52,
                 style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 28,
@@ -239,6 +273,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
                   color: Colors.white,
                 ),
                 decoration: InputDecoration(
+                  counterText: "",
                   hintText: 'Heading',
                   hintStyle: TextStyle(
                     fontFamily: 'Poppins',
