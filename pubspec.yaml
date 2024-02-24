@@ -16,7 +16,7 @@ dependencies:
   # Utilities Packages
   flutter_native_splash: ^2.3.10
   http: ^1.1.0
-  intl: ^0.18.0
+  intl: ^0.19.0
   logger: ^1.4.0
   url_launcher: ^6.1.12
   smooth_page_indicator: ^1.1.0
@@ -54,7 +54,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
 
   #calendar
-  syncfusion_flutter_calendar: ^24.2.7
+  table_calendar: ^3.1.0
 
   #equatable
   equatable: ^2.0.5
@@ -97,6 +97,7 @@ flutter:
     - assets/images/image_carousel/
     - assets/music/
     - assets/medicine/
+    - assets/calendar/
 
   fonts:
     - family: Poppins

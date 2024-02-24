@@ -45,6 +45,23 @@ class _NewJournalPageState extends State<NewJournalPage> {
     journalContent.add(
       journalContentEntry(contentController),
     );
+    createJournalImageAudioDir();
+  }
+
+  Future<void> createJournalImageAudioDir() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final journalDirectory = Directory('${directory.path}/journal');
+    if(!await journalDirectory.exists()){
+      await journalDirectory.create(recursive: true);
+    }
+    final imageDirectory = Directory('${journalDirectory.path}/images');
+    if (!await imageDirectory.exists()) {
+      await imageDirectory.create();
+    }
+    final audioDirectory = Directory('${journalDirectory.path}/audios');
+    if (!await audioDirectory.exists()) {
+      await audioDirectory.create();
+    }
   }
 
   Future<void> init() async {
@@ -107,7 +124,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
   Future<void> startRecording() async {
     final directory = await getApplicationDocumentsDirectory();
     final currentFilePath =
-        '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.aac';
+        '${directory.path}/journal/audios/recording_${DateTime.now().millisecondsSinceEpoch}.aac';
     await recorder.openRecorder();
     await recorder.startRecorder(
         toFile: currentFilePath, codec: fsound.Codec.aacMP4);
@@ -175,7 +192,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
       if (pickedImage != null) {
         final directory = await getApplicationDocumentsDirectory();
         final imagePath = File(
-            '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
+            '${directory.path}/journal/images/${DateTime.now().millisecondsSinceEpoch}.jpg');
         final imageBytes = await pickedImage.readAsBytes();
         await imagePath.writeAsBytes(imageBytes);
 
