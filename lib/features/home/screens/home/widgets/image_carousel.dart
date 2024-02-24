@@ -85,7 +85,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
           },
           options: CarouselOptions(
             height: 200,
-            autoPlay: true,
+            autoPlay: false,
             enlargeCenterPage: true,
           ),
         ),

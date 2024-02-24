@@ -8,6 +8,7 @@ import 'package:solution_challenge_app/features/home/screens/home/widgets/image_
 import 'package:solution_challenge_app/firebase/gauth.dart';
 import 'package:solution_challenge_app/login.dart';
 import 'package:banner_listtile/banner_listtile.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -152,93 +153,98 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BannerListTile(
-                    backgroundColor: Colors.blue,
-                    borderRadius: BorderRadius.circular(8),
-                    bannerPosition: BannerPosition.topRight,
-                    imageContainer: const Image(
-                        image: NetworkImage(
-                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
-                        fit: BoxFit.cover),
-                    title: const Text(
-                      "Music",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    subtitle: const Text("A model from NY",
-                        style: TextStyle(fontSize: 13, color: Colors.white)),
-                    trailing: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_circle_right_rounded,
-                          color: Colors.red,
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BannerListTile(
-                    backgroundColor: Colors.blue,
-                    borderRadius: BorderRadius.circular(8),
-                    bannerPosition: BannerPosition.topRight,
-                    imageContainer: const Image(
-                        image: NetworkImage(
-                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
-                        fit: BoxFit.cover),
-                    title: const Text(
-                      "Journal",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    subtitle: const Text("A model from NY",
-                        style: TextStyle(fontSize: 13, color: Colors.white)),
-                    trailing: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_circle_right_rounded,
-                          color: Colors.red,
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BannerListTile(
-                    backgroundColor: Colors.blue,
-                    borderRadius: BorderRadius.circular(8),
-                    bannerPosition: BannerPosition.topRight,
-                    imageContainer: const Image(
-                        image: NetworkImage(
-                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
-                        fit: BoxFit.cover),
-                    title: const Text(
-                      "Medicine",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    subtitle: const Text("A model from NY",
-                        style: TextStyle(fontSize: 13, color: Colors.white)),
-                    trailing: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_circle_right_rounded,
-                          color: Colors.red,
-                        )),
-                  ),
-                ),
-              ],
-            )
+            SfCalendar(),
           ],
         ),
       ),
     );
   }
 }
+
+
+
+// the banners added by satendra:
+// Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: BannerListTile(
+//                     backgroundColor: Colors.blue,
+//                     borderRadius: BorderRadius.circular(8),
+//                     bannerPosition: BannerPosition.topRight,
+//                     imageContainer: const Image(
+//                         image: NetworkImage(
+//                             "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
+//                         fit: BoxFit.cover),
+//                     title: const Text(
+//                       "Music",
+//                       style: TextStyle(fontSize: 24, color: Colors.white),
+//                       overflow: TextOverflow.ellipsis,
+//                       maxLines: 1,
+//                     ),
+//                     subtitle: const Text("A model from NY",
+//                         style: TextStyle(fontSize: 13, color: Colors.white)),
+//                     trailing: IconButton(
+//                         onPressed: () {},
+//                         icon: const Icon(
+//                           Icons.arrow_circle_right_rounded,
+//                           color: Colors.red,
+//                         )),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: BannerListTile(
+//                     backgroundColor: Colors.blue,
+//                     borderRadius: BorderRadius.circular(8),
+//                     bannerPosition: BannerPosition.topRight,
+//                     imageContainer: const Image(
+//                         image: NetworkImage(
+//                             "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
+//                         fit: BoxFit.cover),
+//                     title: const Text(
+//                       "Journal",
+//                       style: TextStyle(fontSize: 24, color: Colors.white),
+//                       overflow: TextOverflow.ellipsis,
+//                       maxLines: 1,
+//                     ),
+//                     subtitle: const Text("A model from NY",
+//                         style: TextStyle(fontSize: 13, color: Colors.white)),
+//                     trailing: IconButton(
+//                         onPressed: () {},
+//                         icon: const Icon(
+//                           Icons.arrow_circle_right_rounded,
+//                           color: Colors.red,
+//                         )),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: BannerListTile(
+//                     backgroundColor: Colors.blue,
+//                     borderRadius: BorderRadius.circular(8),
+//                     bannerPosition: BannerPosition.topRight,
+//                     imageContainer: const Image(
+//                         image: NetworkImage(
+//                             "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb1.2.1&auto=format&fit=crop&w=387&q=80"),
+//                         fit: BoxFit.cover),
+//                     title: const Text(
+//                       "Medicine",
+//                       style: TextStyle(fontSize: 24, color: Colors.white),
+//                       overflow: TextOverflow.ellipsis,
+//                       maxLines: 1,
+//                     ),
+//                     subtitle: const Text("A model from NY",
+//                         style: TextStyle(fontSize: 13, color: Colors.white)),
+//                     trailing: IconButton(
+//                         onPressed: () {},
+//                         icon: const Icon(
+//                           Icons.arrow_circle_right_rounded,
+//                           color: Colors.red,
+//                         )),
+//                   ),
+//                 ),
+//               ],
+//             )
