@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart';
+import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart'
+    as Appbar;
 import 'package:solution_challenge_app/common/widgets/custom_shapes/container/primary_header_container.dart';
 import 'package:solution_challenge_app/features/home/screens/home/widgets/image_carousel.dart';
+import 'package:solution_challenge_app/features/journal/screens/journal.dart';
 import 'package:solution_challenge_app/firebase/gauth.dart';
 import 'package:solution_challenge_app/login.dart';
 import 'package:table_calendar/table_calendar.dart';
-// import 'package:solution_challenge_app/features/home/model/task.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -502,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 32.0),
-                    child: CustomAppBar(
+                    child: Appbar.CustomAppBar(
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -569,32 +570,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                      padding: const EdgeInsets.only(top: 32.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30, left: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const Text(
-                              'Memories',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 42,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                    padding: const EdgeInsets.only(top: 32.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 30, left: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Memories',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 42,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.arrow_circle_right_outlined,
-                                  color: Colors.white,
-                                  size: 30,
-                                ))
-                          ],
-                        ),
-                      )),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Get.to(const JournalScreen());
+                              },
+                              icon: const Icon(
+                                Icons.arrow_circle_right_outlined,
+                                color: Colors.white,
+                                size: 36,
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
                   const Padding(
                     padding: EdgeInsets.only(top: 25.0, right: 20, left: 20),
                     child: ImageCarousel(),
@@ -605,7 +610,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Stack(
               children: [
                 Positioned(
-                  top: 0,
+                  top: 7,
                   right: 26,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -621,12 +626,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.only(right: 30, left: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Calendar',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 42,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 43),
+                      const SizedBox(height: 72),
                       SizedBox(
                         child: TableCalendar(
                           locale: 'en_US',
