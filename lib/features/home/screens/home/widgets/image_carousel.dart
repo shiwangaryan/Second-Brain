@@ -29,10 +29,8 @@ class ImageCarousel extends StatefulWidget {
 }
 
 class _ImageCarouselState extends State<ImageCarousel> {
-  List<dynamic> carouselImageAssets = imageJounralsInfo();
-  bool manyMemories = true;
-  Set<int> uniqueIndexSet = {};
   List<int> uniqueIndexList = [];
+  bool manyMemories = true;
   final controller = Get.put(NavigatorMenuController());
 
   @override
@@ -44,10 +42,11 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> carouselImageAssets = imageJounralsInfo();
     manyMemories = carouselImageAssets.length >= 6;
     if (manyMemories) {
-      print(carouselImageAssets.length);
       Random rng = Random();
+    Set<int> uniqueIndexSet = {};
       while (uniqueIndexSet.length <= 6) {
         uniqueIndexSet.add(rng.nextInt(carouselImageAssets.length));
       }
