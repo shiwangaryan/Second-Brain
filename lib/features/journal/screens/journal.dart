@@ -78,7 +78,6 @@ class _JournalScreenState extends State<JournalScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 100)
               ],
             ),
           ),

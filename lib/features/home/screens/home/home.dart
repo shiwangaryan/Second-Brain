@@ -554,17 +554,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             ));
                           },
                           child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                      imageUrl ??
-                                          'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ))),
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                  imageUrl ??
+                                      'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         )
                       ],
                     ),
