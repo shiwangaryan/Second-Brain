@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 class Task {
   final String title;
   final String note;
-  final TimeOfDay startTime;
-  final TimeOfDay endTime;
-  final Color color;
+  final String startTime;
+  final String endTime;
+  final String color;
   Task(
     this.title,
     this.note,

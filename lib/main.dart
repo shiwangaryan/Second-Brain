@@ -14,5 +14,6 @@ void main() async {
   await Hive.openBox('memories');
   await Hive.openBox('medicines');
   await Hive.openBox('journal');
+  await Hive.openBox('calendar');
   runApp(const App());
 }

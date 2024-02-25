@@ -37,7 +37,7 @@ class _MedicinePageState extends State<MedicinePage> {
         'dosage': medicineDosage.text,
         'duration': medicineDuration.text,
       };
-      var box = await Hive.openBox('medicines');
+      var box = Hive.box('medicines');
       box.add(medicineData);
       log('Added!');
       medicineName.clear();
@@ -141,7 +141,7 @@ class _MedicinePageState extends State<MedicinePage> {
   }
 
   Future<void> getMedicines() async {
-    var box = await Hive.openBox('medicines');
+    var box = Hive.box('medicines');
     setState(() {
       medicineCardList = box.values.toList();
     });
