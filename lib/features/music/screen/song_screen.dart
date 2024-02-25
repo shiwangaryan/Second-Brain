@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -7,6 +10,7 @@ import 'package:solution_challenge_app/features/music/model/song_model.dart';
 import 'package:solution_challenge_app/features/music/screen/widgets/playbuttons.dart';
 import 'package:solution_challenge_app/features/music/screen/widgets/seekbar.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
+import 'package:http/http.dart' as http;
 
 class SongScreen extends StatefulWidget {
   const SongScreen({super.key, required this.song});
@@ -23,16 +27,18 @@ class _SongScreenState extends State<SongScreen> {
   @override
   void initState() {
     super.initState();
+    print('SongScreen: ${widget.song}');
+    _initPlayer();
+  }
 
-    audioPlayer.setAudioSource(
-      ConcatenatingAudioSource(
-        children: [
-          AudioSource.uri(
-            Uri.parse('asset:///${widget.song.url}'),
-          ),
-        ],
-      ),
-    );
+  Future<void> _initPlayer() async {
+    var url = "https://saavn.dev/songs?link=${widget.song.url}";
+    var data = await http.get(Uri.parse(url));
+    var jsonData = jsonDecode(data.body);
+    var songUrl = jsonData['data'][0]['downloadUrl'];
+    songUrl = songUrl[songUrl.length - 1]['link'];
+    audioPlayer.setUrl(songUrl);
+    log(songUrl.toString());
   }
 
   //to dispose i.e. close the player when we close the song
@@ -95,15 +101,6 @@ class _SongScreenState extends State<SongScreen> {
                 ),
               ),
               SizedBox(height: 10),
-              Text(
-                widget.song.singer,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
               SizedBox(height: 3),
               SongSliderPlayer(
                 seekBarDataStream: seekBarDataStream,
