@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart';
 
@@ -15,8 +15,6 @@ class MedicinePageAppbar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _MedicinePageAppbarState extends State<MedicinePageAppbar> {
-  late String? name = "";
-  late String? email = "";
   late String? imageUrl = "";
 
   @override
@@ -28,8 +26,6 @@ class _MedicinePageAppbarState extends State<MedicinePageAppbar> {
   Future<void> setData() async {
     final user = await GoogleAuth().getUser();
     setState(() {
-      name = user?.displayName;
-      email = user?.email;
       imageUrl = user?.photoURL;
     });
   }
@@ -69,7 +65,7 @@ class _MedicinePageAppbarState extends State<MedicinePageAppbar> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(
+                    image: NetworkImage(
                       imageUrl ??
                           'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
                     ),

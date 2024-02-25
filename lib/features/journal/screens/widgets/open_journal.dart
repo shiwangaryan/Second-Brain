@@ -6,7 +6,7 @@ import 'package:solution_challenge_app/features/journal/screens/widgets/new_jour
 import 'package:flutter_sound/flutter_sound.dart' as fsound;
 
 class OpenJournal extends StatelessWidget {
-  OpenJournal({super.key, required this.content});
+  const OpenJournal({super.key, required this.content});
 
   final dynamic content;
 

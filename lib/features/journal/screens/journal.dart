@@ -1,3 +1,4 @@
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:solution_challenge_app/features/journal/screens/new_journal.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:solution_challenge_app/features/journal/screens/widgets/journal_widget.dart';
+import 'package:solution_challenge_app/firebase/gauth.dart';
+import 'package:solution_challenge_app/login.dart';
 
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});
@@ -15,15 +18,24 @@ class JournalScreen extends StatefulWidget {
 
 class _JournalScreenState extends State<JournalScreen> {
   List<dynamic> journalCards = [];
+  late String? imageUrl = "";
+
+  Future<void> setData() async {
+    final user = await GoogleAuth().getUser();
+    setState(() {
+      imageUrl = user?.photoURL;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     openBox();
+    setData();
   }
 
   void openBox() async {
-    var box = await Hive.openBox('journal');
+    var box = Hive.box('journal');
     setState(() {
       journalCards = box.values.toList();
     });
@@ -44,7 +56,9 @@ class _JournalScreenState extends State<JournalScreen> {
         children: [
           Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: const CustomAppBar(),
+            appBar: CustomAppBar(
+              imageUrl: imageUrl,
+            ),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -93,7 +107,7 @@ class _JournalScreenState extends State<JournalScreen> {
               ),
               child: IconButton(
                 onPressed: () {
-                  Get.to(NewJournalPage(addToHiveBox: () => openBox()));
+                  Get.to(() => NewJournalPage(addToHiveBox: () => openBox()));
                 },
                 icon: const Icon(
                   Icons.add,
@@ -112,7 +126,10 @@ class _JournalScreenState extends State<JournalScreen> {
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
+    this.imageUrl,
   });
+
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -148,16 +165,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         actions: [
-          Container(
+          GestureDetector(
+            onTap: () async {
+              Get.dialog(AlertDialog(
+                title: const Text('Logout'),
+                content: const Text('Are you sure you want to logout?'),
+                actions: [
+                  TextButton(
+                    onPressed: () async {
+                      await GoogleAuth().signOut();
+                      var box = Hive.box('user');
+                      box.clear();
+                      Get.offAll(() => const LoginPage());
+                    },
+                    child: const Text('Logout'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                ],
+              ));
+            },
+            child: Container(
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                        'assets/images/appbar/shiwang_profile_photo.jpg'),
-                    fit: BoxFit.cover,
-                  )))
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageUrl ??
+                        'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

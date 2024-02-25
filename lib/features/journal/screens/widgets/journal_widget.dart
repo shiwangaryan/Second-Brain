@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/journal/screens/widgets/open_journal.dart';
 
 class JournalWidget extends StatelessWidget {
-  JournalWidget({super.key, required this.content});
+  const JournalWidget({super.key, required this.content});
 
   final dynamic content;
 

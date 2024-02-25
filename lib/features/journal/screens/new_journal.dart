@@ -51,7 +51,7 @@ class _NewJournalPageState extends State<NewJournalPage> {
   Future<void> createJournalImageAudioDir() async {
     final directory = await getApplicationDocumentsDirectory();
     final journalDirectory = Directory('${directory.path}/journal');
-    if(!await journalDirectory.exists()){
+    if (!await journalDirectory.exists()) {
       await journalDirectory.create(recursive: true);
     }
     final imageDirectory = Directory('${journalDirectory.path}/images');
@@ -237,7 +237,10 @@ class _NewJournalPageState extends State<NewJournalPage> {
         //----------------------
         //appbar
         //----------------------
-        appBar: CustomAppBar(submitFunc: () => submitContent(), tick: true),
+        appBar: CustomAppBar(
+          submitFunc: () => submitContent(),
+          tick: true,
+        ),
         //----------------------
         //bottom app bar
         //----------------------

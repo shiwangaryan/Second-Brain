@@ -2,7 +2,11 @@ import 'dart:io';
 import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:solution_challenge_app/features/journal/screens/new_journal.dart';
+import 'package:solution_challenge_app/features/journal/screens/widgets/open_journal.dart';
+import 'package:solution_challenge_app/navigation_menu.dart';
 
 List<dynamic> imageJounralsInfo() {
   List<dynamic> ImageJournalsInfo = [];
@@ -29,22 +33,26 @@ class _ImageCarouselState extends State<ImageCarousel> {
   bool manyMemories = true;
   Set<int> uniqueIndexSet = {};
   List<int> uniqueIndexList = [];
+  final controller = Get.put(NavigatorMenuController());
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void addToHive() {}
+
+  @override
+  Widget build(BuildContext context) {
     manyMemories = carouselImageAssets.length >= 6;
     if (manyMemories) {
+      print(carouselImageAssets.length);
       Random rng = Random();
       while (uniqueIndexSet.length <= 6) {
         uniqueIndexSet.add(rng.nextInt(carouselImageAssets.length));
       }
       uniqueIndexList = uniqueIndexSet.toList();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -54,7 +62,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 itemBuilder: (context, index, realIndex) {
                   if (index == uniqueIndexList.length) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => NewJournalPage(addToHiveBox: addToHive));
+                      },
                       child: Center(
                         child: Container(
                           width: 380,
@@ -93,7 +103,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 itemBuilder: (context, index, realIndex) {
                   if (index == carouselImageAssets.length) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => NewJournalPage(addToHiveBox: addToHive));
+                      },
                       child: Center(
                         child: Container(
                           width: 380,
@@ -149,7 +161,9 @@ class BuildImage extends StatelessWidget {
         ? '${content['heading'].substring(0, 12)}...'
         : content['heading'];
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => OpenJournal(content: content));
+      },
       child: Stack(
         children: [
           Container(
