@@ -1,11 +1,35 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:solution_challenge_app/features/music/model/song_model.dart';
 import 'package:solution_challenge_app/features/music/screen/widgets/song_cards.dart';
+import 'package:solution_challenge_app/firebase/gauth.dart';
+import 'package:solution_challenge_app/login.dart';
 
-class MusicPage extends StatelessWidget {
+class MusicPage extends StatefulWidget {
   const MusicPage({super.key});
+
+  @override
+  State<MusicPage> createState() => _MusicPageState();
+}
+
+class _MusicPageState extends State<MusicPage> {
+  late String? imageUrl = "";
+
+  Future<void> setData() async {
+    final user = await GoogleAuth().getUser();
+    setState(() {
+      imageUrl = user?.photoURL;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +48,7 @@ class MusicPage extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(imageUrl: imageUrl),
         body: Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
           child: SingleChildScrollView(
@@ -64,7 +88,7 @@ class MusicPage extends StatelessWidget {
 }
 
 //-----------------------
-// all the widgets below:- 
+// all the widgets below:-
 //-----------------------
 class FinishingRow extends StatelessWidget {
   const FinishingRow({
@@ -181,9 +205,12 @@ class SearchBar extends StatelessWidget {
 }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
+  CustomAppBar({
     super.key,
+    this.imageUrl,
   });
+
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -218,16 +245,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         actions: [
-          Container(
+          GestureDetector(
+            onTap: () async {
+              Get.dialog(AlertDialog(
+                title: const Text('Logout'),
+                content: const Text('Are you sure you want to logout?'),
+                actions: [
+                  TextButton(
+                    onPressed: () async {
+                      await GoogleAuth().signOut();
+                      var box = Hive.box('user');
+                      box.clear();
+                      Get.offAll(() => const LoginPage());
+                    },
+                    child: const Text('Logout'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                ],
+              ));
+            },
+            child: Container(
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                        'assets/images/appbar/shiwang_profile_photo.jpg'),
-                    fit: BoxFit.cover,
-                  )))
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imageUrl ??
+                        'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

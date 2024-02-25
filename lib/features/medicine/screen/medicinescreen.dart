@@ -1,8 +1,10 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_card_class.dart';
 import 'package:solution_challenge_app/features/medicine/screen/widget/medicine_appbar.dart';
 
@@ -17,8 +19,23 @@ class _MedicinePageState extends State<MedicinePage> {
   TextEditingController medicineName = TextEditingController();
   TextEditingController medicineDosage = TextEditingController();
   TextEditingController medicineDuration = TextEditingController();
+  bool imageSelected = false;
 
-  late List<dynamic> medicineCardList = [];
+  List<dynamic> medicineCardList = [];
+  String imageFile = '';
+
+  Future<void> getMedicines() async {
+    var box = Hive.box('medicines');
+    setState(() {
+      medicineCardList = box.values.toList();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getMedicines();
+  }
 
   /// This method is used to add a new medicine card to the Hive box.
   ///
@@ -36,10 +53,10 @@ class _MedicinePageState extends State<MedicinePage> {
             "${medicineName.text[0].toUpperCase()}${medicineName.text.substring(1)}",
         'dosage': medicineDosage.text,
         'duration': medicineDuration.text,
+        'imageFile': imageFile,
       };
       var box = Hive.box('medicines');
-      box.add(medicineData);
-      log('Added!');
+      await box.add(medicineData);
       medicineName.clear();
       medicineDosage.clear();
       medicineDuration.clear();
@@ -68,7 +85,13 @@ class _MedicinePageState extends State<MedicinePage> {
             Padding(
               padding: const EdgeInsets.only(left: 24.0, top: 1),
               child: IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  medicineName.clear();
+                  medicineDosage.clear();
+                  medicineDuration.clear();
+                  imageSelected = false;
+                  Navigator.pop(context);
+                },
                 icon: const Icon(
                   Icons.close,
                   color: Colors.white,
@@ -81,8 +104,9 @@ class _MedicinePageState extends State<MedicinePage> {
         content: Form(
           child: SizedBox(
             width: 280,
-            height: 200,
+            height: 250,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 StringInfoFormField(
                     text: 'Medicine name', controller: medicineName),
@@ -93,6 +117,43 @@ class _MedicinePageState extends State<MedicinePage> {
                 StringInfoFormField(
                     text: 'Duration eg: 4 months',
                     controller: medicineDuration),
+                const SizedBox(height: 8),
+                InkWell(
+                  onTap: () => pickImagefromGallery(),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 175,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[600],
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10),
+                          child: Text(
+                            "Add Medicine's Photo",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 7),
+                      Builder(builder: (context) {
+                        return imageSelected
+                            ? const Icon(
+                                Icons.done,
+                                color: Colors.green,
+                                size: 16,
+                              )
+                            : const SizedBox();
+                      }),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -109,6 +170,7 @@ class _MedicinePageState extends State<MedicinePage> {
                   medicineName.clear();
                   medicineDosage.clear();
                   medicineDuration.clear();
+                  imageSelected = false;
                   FocusScope.of(context).unfocus();
                 },
                 child: const SizedBox(
@@ -140,18 +202,27 @@ class _MedicinePageState extends State<MedicinePage> {
     );
   }
 
-  Future<void> getMedicines() async {
-    var box = Hive.box('medicines');
-    setState(() {
-      medicineCardList = box.values.toList();
-    });
-  }
+  pickImagefromGallery() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = File(
+            '${directory.path}/journal/images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+        final imageBytes = await pickedImage.readAsBytes();
+        await imagePath.writeAsBytes(imageBytes);
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMedicines();
+        setState(() {
+          imageFile = imagePath.path;
+          imageSelected = true;
+        });
+      } else {
+        print('no image selected');
+      }
+    } catch (e) {
+      print('error occured: $e');
+    }
   }
 
   @override
@@ -208,6 +279,7 @@ class _MedicinePageState extends State<MedicinePage> {
                             name: medicine['name'],
                             dosage: medicine['dosage'],
                             duration: medicine['duration'],
+                            img: medicine['imageFile'],
                             // () {
                             //   setState(() {
                             //     medicineCardList.removeAt(index);

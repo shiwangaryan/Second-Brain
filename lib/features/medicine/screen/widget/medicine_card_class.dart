@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class MedicineCard extends StatelessWidget {
+class MedicineCard extends StatefulWidget {
   const MedicineCard({
     super.key,
     this.img,
@@ -21,9 +22,20 @@ class MedicineCard extends StatelessWidget {
   final int? stock;
 
   @override
+  State<MedicineCard> createState() => _MedicineCardState();
+}
+
+class _MedicineCardState extends State<MedicineCard> {
+  @override
   Widget build(BuildContext context) {
+    bool isFileImage = false;
+    if (widget.img != null) {
+      setState(() {
+        isFileImage = true;
+      });
+    }
     void showMedicineInfoDialogue(
-        String img, String name, String dosage, String duration) {
+        String image, String name, String dosage, String duration) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -69,20 +81,33 @@ class MedicineCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 300,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(img),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
+                        isFileImage
+                            ? Container(
+                                width: 300,
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(File(image)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              )
+                            : Container(
+                                width: 300,
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/medicine/default_meds.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
                         SizedBox(height: 30),
                         Text(
-                          name,
+                          'Name: $name',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 26,
@@ -91,7 +116,7 @@ class MedicineCard extends StatelessWidget {
                         ),
                         SizedBox(height: 3),
                         Text(
-                          duration,
+                          'Duration:  $duration',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 16,
@@ -100,7 +125,7 @@ class MedicineCard extends StatelessWidget {
                         ),
                         SizedBox(height: 3),
                         Text(
-                          dosage,
+                          'Dosage:  $dosage',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 16,
@@ -121,10 +146,10 @@ class MedicineCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         showMedicineInfoDialogue(
-          img ?? 'assets/medicine/default_meds.jpg',
-          name,
-          duration,
-          dosage,
+          isFileImage ? widget.img! : 'assets/medicine/default_meds.jpg',
+          widget.name,
+          widget.duration,
+          widget.dosage,
         );
       },
       child: Container(
@@ -135,22 +160,34 @@ class MedicineCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(img ?? 'assets/medicine/default_meds.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            isFileImage
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: FileImage(File(widget.img!)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: AssetImage('assets/medicine/default_meds.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Text(
-                name,
+                widget.name,
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
@@ -159,7 +196,7 @@ class MedicineCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Text(
-                dosage,
+                'Dosage:  ${widget.dosage}',
                 style:
                     const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
               ),

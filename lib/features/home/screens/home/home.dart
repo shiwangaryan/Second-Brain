@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -7,9 +7,9 @@ import 'package:solution_challenge_app/common/widgets/appbar/appbar.dart'
     as Appbar;
 import 'package:solution_challenge_app/common/widgets/custom_shapes/container/primary_header_container.dart';
 import 'package:solution_challenge_app/features/home/screens/home/widgets/image_carousel.dart';
-import 'package:solution_challenge_app/features/journal/screens/journal.dart';
 import 'package:solution_challenge_app/firebase/gauth.dart';
 import 'package:solution_challenge_app/login.dart';
+import 'package:solution_challenge_app/navigation_menu.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,13 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> boxKeyData = [];
   List<dynamic> tasks = [];
   int colorSelected = 0;
-  var sampleTask = {
-    'title': 'Dental Appointment',
-    'note': 'meet doctor at dental clinic for seeing the cavity',
-    'startTime': '9:11',
-    'endTime': '12:00',
-    'color': '0xFFF34B3F'
-  };
   TextEditingController titleController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   List<String> taskColor = [
@@ -49,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       TimeOfDay(hour: DateTime.now().hour + 1, minute: DateTime.now().minute);
   late String startTimeString;
   late String endTimeString;
+  final controller = Get.put(NavigatorMenuController());
 
   @override
   void initState() {
@@ -58,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
         '${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}';
     endTimeString =
         '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
-    tasks.add(sampleTask);
   }
 
   void submitEvent() async {
@@ -559,7 +552,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(
+                                image: NetworkImage(
                                   imageUrl ??
                                       'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
                                 ),
@@ -567,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -591,7 +584,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           IconButton(
                               onPressed: () {
-                                Get.to(const JournalScreen());
+                                controller.selectionindex.value = 2;
                               },
                               icon: const Icon(
                                 Icons.arrow_circle_right_outlined,
