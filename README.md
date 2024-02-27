@@ -6,19 +6,19 @@ This disease cant be fully treated but it can be slowed down and for this purpos
 </br>
 <h2>Project Screenshots:</h2>
 </br>
-<img src="https://lh3.googleusercontent.com/pw/AP1GczO9ahQPc2yjjANaol_nb5K4xisjDvZt364Lyeszd18GsIxhVzai3TieVijyk52aWIPXkV-NWaLPbnVixQ4IOPYtThYXY7nR-3hbZZQybF9gMmGcBDkYJdz01UbCwj93YBeBCOePCI_PQ3MpaNsikOOL=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczO9ahQPc2yjjANaol_nb5K4xisjDvZt364Lyeszd18GsIxhVzai3TieVijyk52aWIPXkV-NWaLPbnVixQ4IOPYtThYXY7nR-3hbZZQybF9gMmGcBDkYJdz01UbCwj93YBeBCOePCI_PQ3MpaNsikOOL=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczOIkf464NMASgn4kjj5gCYLL89Wvl9BJKtd-Q3c5-87XGi_cT4PEYJq_-3fR0AZ-DG4cR3fRg7QrfSWc4NlCpbJeUlg_XBRZK9uQb5y7j3qRORLNRK5ysQE249IK0K3uOo8k_YN_pFfKc7At9Fj_O2W=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczOIkf464NMASgn4kjj5gCYLL89Wvl9BJKtd-Q3c5-87XGi_cT4PEYJq_-3fR0AZ-DG4cR3fRg7QrfSWc4NlCpbJeUlg_XBRZK9uQb5y7j3qRORLNRK5ysQE249IK0K3uOo8k_YN_pFfKc7At9Fj_O2W=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczMMj85CewxurFZyYSSMISqNy7Bwbm1QF1aKQFldnp_arjNZDIt2IbOa_ZrkeWVb2oM_pjXd022ZjNaWeQQUQ5eM8RJS6jVsT_zQqE6gW28hwG-epJM085iXlZ-hAJ70UQKfi-I1oKX7-vLziPO5GtDg=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczMMj85CewxurFZyYSSMISqNy7Bwbm1QF1aKQFldnp_arjNZDIt2IbOa_ZrkeWVb2oM_pjXd022ZjNaWeQQUQ5eM8RJS6jVsT_zQqE6gW28hwG-epJM085iXlZ-hAJ70UQKfi-I1oKX7-vLziPO5GtDg=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczOXDhpXOim6pBxq-PiRqrgSbPhtTNxDRMzPiUQ9vQiIQRu9yVHT7n6f6LWgUmCWhMGpAo_G22C6Q2kubRC0ohemyJdjNA9UTdKQgSN1aRDSE2cuu-pfrszC6eVQ6zCrg5uROLDuJSNVoU8wNmza0y1W=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczOXDhpXOim6pBxq-PiRqrgSbPhtTNxDRMzPiUQ9vQiIQRu9yVHT7n6f6LWgUmCWhMGpAo_G22C6Q2kubRC0ohemyJdjNA9UTdKQgSN1aRDSE2cuu-pfrszC6eVQ6zCrg5uROLDuJSNVoU8wNmza0y1W=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczNVbXv5Jm9wCeaC8jOuCO5UDo05GNDhnOXqB6uBZ89SKEHi-1fbd69sQ1SLeFC14x6d11TZYj9lfnAMaCJzM-aLxBgovzqzWDeudxM1ugAoBvstcQJOD_K6rrJ_MCTCqmqL5H6ZVmzOqJh7TN5zLPxD=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczNVbXv5Jm9wCeaC8jOuCO5UDo05GNDhnOXqB6uBZ89SKEHi-1fbd69sQ1SLeFC14x6d11TZYj9lfnAMaCJzM-aLxBgovzqzWDeudxM1ugAoBvstcQJOD_K6rrJ_MCTCqmqL5H6ZVmzOqJh7TN5zLPxD=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczPq1H4vPyckhJnhPH6UA3bzYLqiRz9V_C6RiK3L0h5OXbD2o1rES0x9Si4Dt2_Bqt093XQBaItOFVWyb2tyT1VhR1LRYMFBAWpcvLOS2wR6HNlaVoLHs9WZ_tSKoqlLw3wxA4JHzq10G6bRHYGn5S-B=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczPq1H4vPyckhJnhPH6UA3bzYLqiRz9V_C6RiK3L0h5OXbD2o1rES0x9Si4Dt2_Bqt093XQBaItOFVWyb2tyT1VhR1LRYMFBAWpcvLOS2wR6HNlaVoLHs9WZ_tSKoqlLw3wxA4JHzq10G6bRHYGn5S-B=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
-<img src="https://lh3.googleusercontent.com/pw/AP1GczME5qcfQu3mC5FAYxdQ_p-wUdgZwtf7iuvxlQcYxAKPxv7VZlIwQKCyFwGIijoV4chbjMic8McCOcd2oPIrNIoBSXPhlQGCr9aE7uihw6Lxb4TXt4HW1VhQ6lk7GaqKyiZ3JhDoWgSaQKpfnVDsN8Zs=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="250" height="450/">
+<img src="https://lh3.googleusercontent.com/pw/AP1GczME5qcfQu3mC5FAYxdQ_p-wUdgZwtf7iuvxlQcYxAKPxv7VZlIwQKCyFwGIijoV4chbjMic8McCOcd2oPIrNIoBSXPhlQGCr9aE7uihw6Lxb4TXt4HW1VhQ6lk7GaqKyiZ3JhDoWgSaQKpfnVDsN8Zs=w414-h919-s-no-gm?authuser=0" alt="project-screenshot" width="220" height="450/">
 
   
 </br>
