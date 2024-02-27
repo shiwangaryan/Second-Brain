@@ -1,8 +1,8 @@
 # Second Brain
 
-<p id="description">We the student of GDSC IIIT Kota made the project 'Second Brain' to help people suffering from Dementia. </br>People suffering from Dementia have difficulty in remembering things doing daily routine work properly controlling their emotion &amp; mood and much more.</p>
+<p id="description">We, the student of GDSC IIIT Kota made the project 'Second Brain' to help people suffering from Dementia. </br>People suffering from Dementia have difficulty in remembering things doing daily routine work properly and controlling their emotions and mood.</p>
 <p>
-This disease cant be fully treated but it can be slowed down and for this purpose we made this app to help them remember daily tasks organize their medication &amp; appointments remember meetings &amp; events control their emotions by a proven method of listening to music for different situations and the at last a chatbot- Serenity for helping in any situation.</p>
+ven though this disease can't be fully treated but it can be slowed down and for this purpose we made this app to help them remember daily tasks organize their medication &amp; appointments remember meetings &amp; events control their emotions by a proven method of listening to music for different situations and the at last a chatbot- Serenity for helping in any situation.</p>
 </br>
 <h2>Project Screenshots:</h2>
 </br>
@@ -26,14 +26,14 @@ This disease cant be fully treated but it can be slowed down and for this purpos
 </br>
 <h2>🧐 Features</h2>
 </br>
-Here're some of the project's best features:
+Here are some of the project's best features:
 
-*  <b><i>Revisit their cherished memory</i></b> to jog their memory and stimulate brain helping in slowing down the effects of dementia
-*   <b><i>Track your daily routine</b></i>, appointments meetups and medication all in one place.
-*   <b><i>Add new memories</b></i> with feature of writing about it adding photos & voice notes to reassure themself and hence making them remember meeting and events close to their hearts
-*   <b><i>Listening to music</b></i> for tackling the uncontrolled emotions and mood swings that happens in dementia by ensuring a section for each mood
-*   While Golden Oldies jog their memory helping in remembering music of their times to stimulate brain, Calm Melodies help them to feel calm & at last Toe Tapping Beats to stimulate brain with simultaneously making brain muscles connection stronger
-*   At last a <b><i>chatbot- Serenity</b></i> to help them in any situation that may arise and providing them with someone to help them get through it.
+*  <b><i>Revisit cherished memory</i></b> to jog their memory and stimulate brain, helping in slowing down the effects of dementia.
+*   <b><i>Track your daily routine</b></i>, appointments meetups, and medication all in one place.
+*   <b><i>Add new memories</b></i> with feature of writing about it, adding photos, and voice notes to reassure themself. Hence making them remember meetings and events close to their hearts.
+*   <b><i>Listening to music</b></i> for tackling the uncontrolled emotions and mood swings that occur in dementia by providing a section for each mood.
+*   Golden Oldies jog their memory, helping to remember music of their times and stimulating the brain, Calm Melodies help them to feel calm & at last Toe Tapping Beats to stimulate brain with simultaneously making brain muscles connection stronger/
+*   At last, a <b><i>chatbot- Serenity</b></i> to help them in any situation that may arise and providing them with someone to help them get through it.
 </br>
 <h2>🛠️ Installation Steps:</h2>
 </br>
@@ -41,7 +41,7 @@ Here're some of the project's best features:
 
 <p>2. Fork the repository in your github account and download the code in your local machine</p>
 
-<p>3. Open terminal in the app's source folder and type: the following code for getting all dependencies</p>
+<p>3. Open terminal in the app's source folder and type the following code for getting all dependencies</p>
 
 ```
 flutter pub get
@@ -55,7 +55,7 @@ flutter pub get
 flutter run
 ```
 
-<p>6. Voila! your app is ready and running in your virtual/local device</p>
+<p>6. Voila! Your app is ready and running in your virtual/local device</p>
 
   
  </br>
