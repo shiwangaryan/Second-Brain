@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
     '0xFFE678FF',
     '0xFFF34B3F'
   ];
-  TimeOfDay startTime = TimeOfDay.now();
+  ValueNotifier<TimeOfDay> startTime =
+      ValueNotifier<TimeOfDay>(TimeOfDay.now());
   TimeOfDay endTime =
       TimeOfDay(hour: DateTime.now().hour + 1, minute: DateTime.now().minute);
   late String startTimeString;
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     setData();
     startTimeString =
-        '${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}';
+        '${startTime.value.hour}:${startTime.value.minute.toString().padLeft(2, '0')}';
     endTimeString =
         '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
   }
@@ -82,11 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
       noteController.clear();
       setState(() {
         colorSelected = 0;
-        startTime = TimeOfDay.now();
+        startTime = ValueNotifier<TimeOfDay>(TimeOfDay.now());
         endTime = TimeOfDay(
             hour: DateTime.now().hour + 1, minute: DateTime.now().minute);
         startTimeString =
-            '${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}';
+            '${startTime.value.hour}:${startTime.value.minute.toString().padLeft(2, '0')}';
         endTimeString =
             '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
         tasks = box.values.toList();
@@ -96,11 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void addEventDialogue() {
     setState(() {
-      startTime = TimeOfDay.now();
+      startTime = ValueNotifier<TimeOfDay>(TimeOfDay.now());
+
       endTime = TimeOfDay(
           hour: DateTime.now().hour + 1, minute: DateTime.now().minute);
       startTimeString =
-          '${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}';
+          '${startTime.value.hour}:${startTime.value.minute.toString().padLeft(2, '0')}';
       endTimeString =
           '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
     });
@@ -140,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   colorSelected = 0;
                   titleController.clear();
                   noteController.clear();
-                  startTime = TimeOfDay.now();
+                  startTime = ValueNotifier<TimeOfDay>(TimeOfDay.now());
                   endTime = TimeOfDay(
                       hour: DateTime.now().hour + 1,
                       minute: DateTime.now().minute);
@@ -174,117 +176,125 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 StringInfoFormField(
                     text: 'Description', controller: noteController),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15.0, bottom: 5),
-                            child: DialogueText(text: 'Start Time'),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              TimeOfDay? timeSelected = await showTimePicker(
-                                context: context,
-                                initialTime: startTime,
-                                initialEntryMode: TimePickerEntryMode.dial,
-                              );
-                              if (timeSelected != null) {
-                                setState(() {
-                                  startTime = timeSelected;
-                                  startTimeString =
-                                      '${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}';
-                                });
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(startTimeString,
-                                        style: const TextStyle(
-                                            color: Colors.black54)),
-                                    const Icon(
-                                      Icons.watch_later_outlined,
-                                      color: Colors.black,
-                                      size: 18,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 15.0, bottom: 5),
+                              child: DialogueText(text: 'Start Time'),
                             ),
-                          ),
-                        ],
+                            ValueListenableBuilder<TimeOfDay>(
+                                valueListenable: startTime,
+                                builder: (context, starttime, _) {
+                                  return InkWell(
+                                    onTap: () async {
+                                      TimeOfDay? timeSelected =
+                                          await showTimePicker(
+                                        context: context,
+                                        initialTime: starttime,
+                                        initialEntryMode:
+                                            TimePickerEntryMode.dial,
+                                      );
+                                      if (timeSelected != null) {
+                                        setState(() {
+                                          starttime = timeSelected;
+                                          startTimeString =
+                                              '${starttime.hour}:${starttime.minute.toString().padLeft(2, '0')}';
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(startTimeString,
+                                                style: const TextStyle(
+                                                    color: Colors.black54)),
+                                            const Icon(
+                                              Icons.watch_later_outlined,
+                                              color: Colors.black,
+                                              size: 18,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15.0, bottom: 5),
-                            child: DialogueText(text: 'End Time'),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              TimeOfDay? timeSelected = await showTimePicker(
-                                context: context,
-                                initialTime: endTime,
-                                initialEntryMode: TimePickerEntryMode.dial,
-                              );
-                              if (timeSelected != null) {
-                                setState(() {
-                                  endTime = timeSelected;
-                                  endTimeString =
-                                      '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
-                                });
-                              }
-                            },
-                            child: Builder(builder: (context) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        endTimeString,
-                                        style: const TextStyle(
-                                            color: Colors.black54),
-                                      ),
-                                      const Icon(
-                                        Icons.watch_later_outlined,
-                                        color: Colors.black,
-                                        size: 18,
-                                      ),
-                                    ],
+                      const SizedBox(width: 12),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 15.0, bottom: 5),
+                              child: DialogueText(text: 'End Time'),
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                TimeOfDay? timeSelected = await showTimePicker(
+                                  context: context,
+                                  initialTime: endTime,
+                                  initialEntryMode: TimePickerEntryMode.dial,
+                                );
+                                if (timeSelected != null) {
+                                  setState(() {
+                                    endTime = timeSelected;
+                                    endTimeString =
+                                        '${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}';
+                                  });
+                                }
+                              },
+                              child: Builder(builder: (context) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                ),
-                              );
-                            }),
-                          )
-                        ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          endTimeString,
+                                          style: const TextStyle(
+                                              color: Colors.black54),
+                                        ),
+                                        const Icon(
+                                          Icons.watch_later_outlined,
+                                          color: Colors.black,
+                                          size: 18,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -416,7 +426,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   FocusScope.of(context).unfocus();
                   setState(() {
                     colorSelected = 0;
-                    startTime = TimeOfDay.now();
+                    startTime = ValueNotifier<TimeOfDay>(TimeOfDay.now());
+
                     endTime = TimeOfDay(
                         hour: DateTime.now().hour + 1,
                         minute: DateTime.now().minute);

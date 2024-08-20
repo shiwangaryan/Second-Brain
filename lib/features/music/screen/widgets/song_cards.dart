@@ -62,14 +62,20 @@ class SongCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              // First 12 characters of the song title
-                              song.title.length < 12
-                                  ? song.title
-                                  : '${song.title.substring(0, 12)}...',
+                              song.title,
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 104, 156),
                                 fontFamily: 'Poppins',
                                 fontSize: 15,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              song.singer,
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontFamily: 'Poppins',
+                                fontSize: 12,
                                 fontWeight: FontWeight.w300,
                               ),
                             ),

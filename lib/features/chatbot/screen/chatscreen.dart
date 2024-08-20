@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:solution_challenge_app/features/chatbot/model/chat_message.dart';
 import 'package:google_gemini/google_gemini.dart';
+import 'package:solution_challenge_app/keys.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -15,8 +16,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> messages = [];
   final gemini =
-      GoogleGemini(apiKey: 'AIzaSyCnlDOOB8f3bx4szZEBe3ZcGHo1TTpFxdg');
-  TextEditingController textEditingController = TextEditingController();
+      GoogleGemini(apiKey: geminiAPI);
+  TextEditingController textEditingController = TextEditingController();-
   StreamSubscription? subscription;
   bool loading = false;
 

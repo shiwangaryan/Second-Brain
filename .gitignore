@@ -46,6 +46,7 @@ app.*.map.json
 # Firebase related
 firebase.json
 firebase_options.dart
+keys.dart
 google-services.json
 ./android/app/google-services.json
 
