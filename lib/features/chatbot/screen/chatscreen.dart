@@ -17,7 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<ChatMessage> messages = [];
   final gemini =
       GoogleGemini(apiKey: geminiAPI);
-  TextEditingController textEditingController = TextEditingController();-
+  TextEditingController textEditingController = TextEditingController();
   StreamSubscription? subscription;
   bool loading = false;
 
