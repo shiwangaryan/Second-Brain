@@ -1,8 +1,9 @@
 # Second Brain
 
-<p id="description">We, the student of GDSC IIIT Kota made the project 'Second Brain' to help people suffering from Dementia. </br>People suffering from Dementia have difficulty in remembering things doing daily routine work properly and controlling their emotions and mood.</p>
+<p id="description">I made the project 'Second Brain' to help people suffering from Dementia. </br>People suffering from Dementia have difficulty in remembering things doing daily routine work properly and controlling their emotions and mood.</p>
 <p>
 Even though this disease can't be fully treated but it can be slowed down and for this purpose we made this app to help them remember daily tasks organize their medication &amp; appointments remember meetings &amp; events control their emotions by a proven method of listening to music for different situations and the at last a chatbot- Serenity for helping in any situation.</p>
+<p>Made using:Flutter, GetX state management, Hive (for local storage), Firebase, and Gemini chatbot.</p>
 </br>
 <h2>Project Screenshots:</h2>
 </br>
